@@ -4,11 +4,10 @@ const keyCodeMap = {
   LEFT_ARROW: 39
 };
 
-const documentMainNode = document.querySelector(`#main`);
+const documentBodyNode = document.querySelector(`body`);
+const documentMainNode = documentBodyNode.querySelector(`#main`);
 const templateArr = Array.from(document.querySelectorAll(`template`)).map((it) => it.content);
-
-// Добавляет блок со стрелками в конец body
-document.querySelector(`body`).insertAdjacentHTML(`beforeEnd`, `
+const arrowBtnContainerMarkup = `
   <div class="arrows__wrap">
   <style>
     .arrows__wrap {
@@ -25,7 +24,10 @@ document.querySelector(`body`).insertAdjacentHTML(`beforeEnd`, `
   </style>
   <button class="arrows__btn"><-</button>
   <button class="arrows__btn">-></button>
-</div>`);
+</div>`;
+
+// Добавляет блок со стрелками в конец body
+documentBodyNode.insertAdjacentHTML(`beforeEnd`, arrowBtnContainerMarkup);
 
 const arrowBtnsContainer = document.querySelector(`.arrows__wrap`);
 const arrowBtnsArr = arrowBtnsContainer.querySelectorAll(`.arrows__btn`);
@@ -40,9 +42,7 @@ const appendTemplate = (el) => {
 const renderScreen = (i) => {
   i = i < 0 ? templateArr.length - 1 : i;
   i = i >= templateArr.length ? 0 : i;
-
   currentIndex = i;
-
   appendTemplate(templateArr[currentIndex]);
 };
 
