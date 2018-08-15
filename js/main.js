@@ -1,4 +1,3 @@
-'use strict';
 const keyCodeMap = {
   RIGHT_ARROW: 37,
   LEFT_ARROW: 39
