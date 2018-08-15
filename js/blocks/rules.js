@@ -1,4 +1,6 @@
 import {createNodeFromTemplate} from '../utils/createNode.js';
+import {appendNodeToMain} from '../utils/appendNode.js';
+import gameOneNode from './gameOne.js';
 
 const rulesTemplate = `
   <header class="header">
@@ -28,6 +30,20 @@ const rulesTemplate = `
       <button class="rules__button  continue" type="submit" disabled>Go!</button>
     </form>
   </section>`;
-const rulesNode = createNodeFromTemplate(rulesTemplate);
 
-export {rulesNode};
+const rulesNode = createNodeFromTemplate(rulesTemplate);
+const rulesInput = rulesNode.querySelector(`.rules__input`);
+const rulesSubmitBtn = rulesNode.querySelector(`.rules__button`);
+const rulesForm = rulesNode.querySelector(`.rules__form`);
+
+// Кнопка активна, если инпут не пуст
+rulesInput.addEventListener(`input`, () => {
+  rulesSubmitBtn.disabled = rulesInput.value !== `` ? false : true;
+});
+
+// При отправке формы переходим на новый экран
+rulesForm.addEventListener(`submit`, () => {
+  appendNodeToMain(gameOneNode);
+});
+
+export default rulesNode;

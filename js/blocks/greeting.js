@@ -1,4 +1,6 @@
 import {createNodeFromTemplate} from '../utils/createNode.js';
+import {appendNodeToMain} from '../utils/appendNode.js';
+import rulesNode from './rules.js';
 
 const greetingTemplate = `
   <section class="greeting central--blur">
@@ -21,6 +23,12 @@ const greetingTemplate = `
       </svg>
     </button>
   </section>`;
-const greetingNode = createNodeFromTemplate(greetingTemplate);
 
-export {greetingNode};
+const greetingNode = createNodeFromTemplate(greetingTemplate);
+const greetingArrowNode = greetingNode.querySelector(`.greeting__continue`);
+
+greetingArrowNode.addEventListener(`click`, () => {
+  appendNodeToMain(rulesNode);
+});
+
+export default greetingNode;

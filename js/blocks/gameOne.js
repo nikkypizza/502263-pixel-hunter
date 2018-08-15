@@ -1,4 +1,6 @@
 import {createNodeFromTemplate} from '../utils/createNode.js';
+import {appendNodeToMain} from '../utils/appendNode.js';
+import gameTwoNode from './gameTwo.js';
 
 const gameOneTemplate = `
   <header class="header">
@@ -57,6 +59,31 @@ const gameOneTemplate = `
       <li class="stats__result stats__result--unknown"></li>
     </ul>
   </section>`;
-const gameOneNode = createNodeFromTemplate(gameOneTemplate);
 
-export {gameOneNode};
+const gameOneNode = createNodeFromTemplate(gameOneTemplate);
+const gameOneForm = gameOneNode.querySelector(`.game__content`);
+const questionOneRadioNodes = gameOneNode.querySelectorAll(`input[name="question1"]`);
+const questionTwoRadioNodes = gameOneNode.querySelectorAll(`input[name="question2"]`);
+
+// TODO: refactor
+gameOneForm.addEventListener(`input`, () => {
+  let questionOneIsChecked = false;
+  let questionTwoIsChecked = false;
+
+  questionOneRadioNodes.forEach(function (el) {
+    if (el.checked) {
+      questionOneIsChecked = true;
+    }
+  });
+  questionTwoRadioNodes.forEach(function (el) {
+    if (el.checked) {
+      questionTwoIsChecked = true;
+    }
+  });
+
+  if (questionOneIsChecked && questionTwoIsChecked) {
+    appendNodeToMain(gameTwoNode);
+  }
+});
+
+export default gameOneNode;

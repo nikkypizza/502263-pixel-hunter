@@ -1,4 +1,6 @@
 import {createNodeFromTemplate} from '../utils/createNode.js';
+import {appendNodeToMain} from '../utils/appendNode.js';
+import gameThreeNode from './gameThree.js';
 
 const gameTwoTemplate = `
   <header class="header">
@@ -47,5 +49,12 @@ const gameTwoTemplate = `
     </ul>
   </section>`;
 const gameTwoNode = createNodeFromTemplate(gameTwoTemplate);
+const gameTwoContentNode = gameTwoNode.querySelector(`.game__content`);
 
-export {gameTwoNode};
+gameTwoContentNode.addEventListener(`click`, (evt) => {
+  if (evt.target.parentNode.classList.contains(`game__answer`)) {
+    appendNodeToMain(gameThreeNode);
+  }
+});
+
+export default gameTwoNode;

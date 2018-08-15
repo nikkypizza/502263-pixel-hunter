@@ -114,4 +114,4 @@ const statsTemplate = `
   </section>`;
 const statsNode = createNodeFromTemplate(statsTemplate);
 
-export {statsNode};
+export default statsNode;
