@@ -1,4 +1,4 @@
-import {createElementFromTemplate} from '../util.js';
+import {createNodeFromTemplate} from '../utils/createNode.js';
 
 const gameThreeTemplate = `
   <header class="header">
@@ -44,6 +44,6 @@ const gameThreeTemplate = `
       <li class="stats__result stats__result--unknown"></li>
     </ul>
   </section>`;
-const gameThreeNode = createElementFromTemplate(gameThreeTemplate);
+const gameThreeNode = createNodeFromTemplate(gameThreeTemplate);
 
 export {gameThreeNode};

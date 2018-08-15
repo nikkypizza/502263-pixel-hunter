@@ -1,4 +1,4 @@
-import {createElementFromTemplate} from '../util.js';
+import {createNodeFromTemplate} from '../utils/createNode.js';
 
 const rulesTemplate = `
   <header class="header">
@@ -28,6 +28,6 @@ const rulesTemplate = `
       <button class="rules__button  continue" type="submit" disabled>Go!</button>
     </form>
   </section>`;
-const rulesNode = createElementFromTemplate(rulesTemplate);
+const rulesNode = createNodeFromTemplate(rulesTemplate);
 
 export {rulesNode};

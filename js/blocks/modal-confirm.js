@@ -1,4 +1,4 @@
-import {createElementFromTemplate} from '../util.js';
+import {createNodeFromTemplate} from '../utils/createNode.js';
 
 const modalConfirmTemplate = `
   <section class="modal">
@@ -14,6 +14,6 @@ const modalConfirmTemplate = `
       </div>
     </form>
   </section>`;
-const modalConfirmNode = createElementFromTemplate(modalConfirmTemplate);
+const modalConfirmNode = createNodeFromTemplate(modalConfirmTemplate);
 
 export {modalConfirmNode};

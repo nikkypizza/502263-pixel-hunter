@@ -1,4 +1,4 @@
-import {createElementFromTemplate} from '../util.js';
+import {createNodeFromTemplate} from '../utils/createNode.js';
 
 const statsTemplate = `
   <header class="header">
@@ -112,6 +112,6 @@ const statsTemplate = `
       </tr>
     </table>
   </section>`;
-const statsNode = createElementFromTemplate(statsTemplate);
+const statsNode = createNodeFromTemplate(statsTemplate);
 
 export {statsNode};

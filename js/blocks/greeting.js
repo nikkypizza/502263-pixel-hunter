@@ -1,4 +1,4 @@
-import {createElementFromTemplate} from '../util.js';
+import {createNodeFromTemplate} from '../utils/createNode.js';
 
 const greetingTemplate = `
   <section class="greeting central--blur">
@@ -21,6 +21,6 @@ const greetingTemplate = `
       </svg>
     </button>
   </section>`;
-const greetingNode = createElementFromTemplate(greetingTemplate);
+const greetingNode = createNodeFromTemplate(greetingTemplate);
 
 export {greetingNode};
