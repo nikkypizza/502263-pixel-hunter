@@ -7,6 +7,7 @@ const modalErrorTemplate = `
       <p class="modal__text modal__text--error">Статус: 404. Пожалуйста, перезагрузите страницу.</p>
     </div>
   </section>`;
+
 const modalErrorNode = createNodeFromTemplate(modalErrorTemplate);
 
 export {modalErrorNode};

@@ -46,6 +46,7 @@ const gameThreeTemplate = `
       <li class="stats__result stats__result--unknown"></li>
     </ul>
   </section>`;
+
 const gameThreeNode = createNodeFromTemplate(gameThreeTemplate);
 const gameContentNode = gameThreeNode.querySelector(`.game__content`);
 

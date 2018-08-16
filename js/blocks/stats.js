@@ -112,6 +112,7 @@ const statsTemplate = `
       </tr>
     </table>
   </section>`;
+
 const statsNode = createNodeFromTemplate(statsTemplate);
 
 export default statsNode;

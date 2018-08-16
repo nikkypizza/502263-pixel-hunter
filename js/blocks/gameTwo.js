@@ -48,6 +48,7 @@ const gameTwoTemplate = `
       <li class="stats__result stats__result--unknown"></li>
     </ul>
   </section>`;
+
 const gameTwoNode = createNodeFromTemplate(gameTwoTemplate);
 const gameTwoContentNode = gameTwoNode.querySelector(`.game__content`);
 

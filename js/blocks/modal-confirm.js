@@ -14,6 +14,7 @@ const modalConfirmTemplate = `
       </div>
     </form>
   </section>`;
+
 const modalConfirmNode = createNodeFromTemplate(modalConfirmTemplate);
 
 export {modalConfirmNode};
