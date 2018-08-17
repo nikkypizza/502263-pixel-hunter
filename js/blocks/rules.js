@@ -38,7 +38,7 @@ const rulesForm = rulesNode.querySelector(`.rules__form`);
 
 // Кнопка активна, если инпут не пуст
 rulesInput.addEventListener(`input`, () => {
-  rulesSubmitBtn.disabled = rulesInput.value !== `` ? false : true;
+  rulesSubmitBtn.disabled = rulesInput.value.length === 0;
 });
 
 // При отправке формы переходим на новый экран
