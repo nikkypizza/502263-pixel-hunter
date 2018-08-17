@@ -1,4 +1,4 @@
-import {createNodeFromTemplate} from '../utils/createNode.js';
+import createNodeFromTemplate from '../utils/createNode.js';
 
 const modalErrorTemplate = `
   <section class="modal">
@@ -10,4 +10,4 @@ const modalErrorTemplate = `
 
 const modalErrorNode = createNodeFromTemplate(modalErrorTemplate);
 
-export {modalErrorNode};
+export default modalErrorNode;

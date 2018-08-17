@@ -1,4 +1,4 @@
-import {createNodeFromTemplate} from '../utils/createNode.js';
+import createNodeFromTemplate from '../utils/createNode.js';
 
 const statsTemplate = `
   <header class="header">

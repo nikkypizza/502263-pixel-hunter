@@ -1,5 +1,5 @@
-import {createNodeFromTemplate} from '../utils/createNode.js';
-import {appendNodeToMain} from '../utils/appendNode.js';
+import createNodeFromTemplate from '../utils/createNode.js';
+import appendNodeToMain from '../utils/appendNode.js';
 import rulesNode from './rules.js';
 
 const greetingTemplate = `
