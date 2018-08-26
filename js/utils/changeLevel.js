@@ -1,9 +1,10 @@
-import setIngameTimer from './setIngameTimer.js';
+import IngameTimer from './IngameTimer.js';
 
+let gameTimer = new IngameTimer(30000); // На ответ игроку дается 30 сек
 const INITIAL_GAME = Object.freeze({
   level: 0,
   lives: 3,
-  time: setIngameTimer()
+  time: gameTimer.time
 });
 
 const changeLevel = (game, level) => {
