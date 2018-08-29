@@ -1,28 +1,26 @@
 import createNodeFromTemplate from '../utils/createNode.js';
 import appendNodeToMain from '../utils/appendNode.js';
 import gameOneNode from './gameOne.js';
+import getHeaderNode from './getHeaderNode.js';
+
+const rulesInlineIcons = {
+  photo: `<img class="rules__icon" src="img/icon-photo.png" width="32" height="31" alt="Фото">`,
+  paint: `<img class="rules__icon" src="img/icon-paint.png" width="32" height="31" alt="Рисунок">`
+};
+
+const rulesDescriptionsSet = new Set([
+  `Угадай 10 раз для каждого изображения фото ${rulesInlineIcons.photo} или рисунок ${rulesInlineIcons.paint}`,
+  `Фотографиями или рисунками могут быть оба изображения.`,
+  `На каждую попытку отводится 30 секунд.`,
+  `Ошибиться можно не более 3 раз.`
+]);
 
 const rulesTemplate = `
-  <header class="header">
-    <button class="back">
-      <span class="visually-hidden">Вернуться к началу</span>
-      <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
-        <use xlink:href="img/sprite.svg#arrow-left"></use>
-      </svg>
-      <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
-        <use xlink:href="img/sprite.svg#logo-small"></use>
-      </svg>
-    </button>
-  </header>
+  ${getHeaderNode()}
   <section class="rules">
     <h2 class="rules__title">Правила</h2>
     <ul class="rules__description">
-      <li>Угадай 10 раз для каждого изображения фото
-        <img class="rules__icon" src="img/icon-photo.png" width="32" height="31" alt="Фото"> или рисунок
-        <img class="rules__icon" src="img/icon-paint.png" width="32" height="31" alt="Рисунок"></li>
-      <li>Фотографиями или рисунками могут быть оба изображения.</li>
-      <li>На каждую попытку отводится 30 секунд.</li>
-      <li>Ошибиться можно не более 3 раз.</li>
+      ${[...rulesDescriptionsSet].map((it) => `<li>${it}</li>`).join(``)}
     </ul>
     <p class="rules__ready">Готовы?</p>
     <form class="rules__form">

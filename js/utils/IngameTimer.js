@@ -4,7 +4,7 @@ const IngameTimer = function (time, callback) {
     if (this.time > 0) {
       this.time -= 1;
     } else {
-      return callback();
+      callback();
     }
     return this.time;
   };
