@@ -5,9 +5,11 @@ import getHeaderNode from './getHeaderNode.js';
 import {INITIAL_GAME} from '../utils/changeLevel.js';
 import GAME_DATA from '../data/game-data.js';
 
+// Удалил класс-модификатор `game__option--selected`
+// для него не прописаны стили в style.css, значит можно без него
 const getGameOptionNode = (index) => {
   return `
-  <div class="game__option  game__option--selected">
+  <div class="game__option">
     <img src="${GAME_DATA.gameThree.options[index].src}" alt="${GAME_DATA.gameThree.options[index].alt}" width="304" height="455">
   </div>`;
 };

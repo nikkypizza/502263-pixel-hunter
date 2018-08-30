@@ -4,6 +4,7 @@ import gameTwoNode from './gameTwo.js';
 import getHeaderNode from './getHeaderNode.js';
 import {INITIAL_GAME} from '../utils/changeLevel.js';
 import GAME_DATA from '../data/game-data.js';
+import statsListItems from './getStatsNode.js';
 
 const getGameOptionNode = (index) => {
   return `
@@ -29,16 +30,7 @@ const gameOneTemplate = `
       ${getGameOptionNode(1)}
     </form>
     <ul class="stats">
-      <li class="stats__result stats__result--wrong"></li>
-      <li class="stats__result stats__result--slow"></li>
-      <li class="stats__result stats__result--fast"></li>
-      <li class="stats__result stats__result--correct"></li>
-      <li class="stats__result stats__result--unknown"></li>
-      <li class="stats__result stats__result--unknown"></li>
-      <li class="stats__result stats__result--unknown"></li>
-      <li class="stats__result stats__result--unknown"></li>
-      <li class="stats__result stats__result--unknown"></li>
-      <li class="stats__result stats__result--unknown"></li>
+      ${statsListItems.join(``)}
     </ul>
   </section>`;
 
