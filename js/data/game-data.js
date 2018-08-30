@@ -1,5 +1,5 @@
 const GAME_DATA = {
-  'gameOne': {
+  gameOne: {
     task: `Угадайте для каждого изображения фото или рисунок?`,
     options: [{
       alt: `Option 1`,
@@ -16,7 +16,7 @@ const GAME_DATA = {
     ],
     stats: `/?`
   },
-  'gameTwo': {
+  gameTwo: {
     task: `Угадай, фото или рисунок?`,
     options: [{
       alt: `Option 1`,
@@ -26,7 +26,7 @@ const GAME_DATA = {
     }],
     stats: `/?`
   },
-  'gameThree': {
+  gameThree: {
     task: `Найдите рисунок среди изображений`,
     options: [{
       alt: `Option 1`,

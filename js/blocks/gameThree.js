@@ -3,21 +3,23 @@ import appendNodeToMain from '../utils/appendNode.js';
 import statsNode from './stats.js';
 import getHeaderNode from './getHeaderNode.js';
 import {INITIAL_GAME} from '../utils/changeLevel.js';
+import GAME_DATA from '../data/game-data.js';
+
+const getGameOptionNode = (index) => {
+  return `
+  <div class="game__option  game__option--selected">
+    <img src="${GAME_DATA.gameThree.options[index].src}" alt="${GAME_DATA.gameThree.options[index].alt}" width="304" height="455">
+  </div>`;
+};
 
 const gameThreeTemplate = `
   ${getHeaderNode(INITIAL_GAME)}
   <section class="game">
-    <p class="game__task">Найдите рисунок среди изображений</p>
+    <p class="game__task">${GAME_DATA.gameThree.task}</p>
     <form class="game__content  game__content--triple">
-      <div class="game__option">
-        <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
-      </div>
-      <div class="game__option  game__option--selected">
-        <img src="http://placehold.it/304x455" alt="Option 2" width="304" height="455">
-      </div>
-      <div class="game__option">
-        <img src="http://placehold.it/304x455" alt="Option 3" width="304" height="455">
-      </div>
+      ${getGameOptionNode(0)}
+      ${getGameOptionNode(1)}
+      ${getGameOptionNode(2)}
     </form>
     <ul class="stats">
       <li class="stats__result stats__result--wrong"></li>
