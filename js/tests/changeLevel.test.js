@@ -21,6 +21,6 @@ describe(`changeLevel()`, () => {
     assert.throws(() => changeLevel(INITIAL_GAME, `hel${5 + 5}lo`).level, `Level should be of type number`);
   });
   it(`should not accept negative values`, () => {
-    assert.throws(() => changeLevel(INITIAL_GAME, -5).level, `Level should not be negative value`);
+    assert.throws(() => changeLevel(INITIAL_GAME, -5).level, `Level should not be a negative value`);
   });
 });

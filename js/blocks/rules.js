@@ -39,7 +39,6 @@ rulesInput.addEventListener(`input`, () => {
   rulesSubmitBtn.disabled = rulesInput.value.length === 0;
 });
 
-// При отправке формы переходим на новый экран
 rulesForm.addEventListener(`submit`, () => {
   appendNodeToMain(gameOneNode);
 });

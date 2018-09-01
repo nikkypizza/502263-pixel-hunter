@@ -3,25 +3,21 @@ import appendNodeToMain from '../utils/appendNode.js';
 import statsNode from './stats.js';
 import getHeaderNode from './getHeaderNode.js';
 import {INITIAL_GAME} from '../utils/changeLevel.js';
-import GAME_DATA from '../data/game-data.js';
+import {GAME_DATA} from '../data/game-data.js';
 
-// Удалил класс-модификатор `game__option--selected`
-// для него не прописаны стили в style.css, значит можно без него
-const getGameOptionNode = (index) => {
-  return `
+const getGameOptionNode = (data, optionIndex) => `
   <div class="game__option">
-    <img src="${GAME_DATA.gameThree.options[index].src}" alt="${GAME_DATA.gameThree.options[index].alt}" width="304" height="455">
+    <img src="${data[2].options[optionIndex].src}" alt="${data[2].options[optionIndex].alt}" width="304" height="455">
   </div>`;
-};
 
-const gameThreeTemplate = `
+const gameThreeTemplate = (data) => `
   ${getHeaderNode(INITIAL_GAME)}
   <section class="game">
-    <p class="game__task">${GAME_DATA.gameThree.task}</p>
+    <p class="game__task">${data[2].task}</p>
     <form class="game__content  game__content--triple">
-      ${getGameOptionNode(0)}
-      ${getGameOptionNode(1)}
-      ${getGameOptionNode(2)}
+      ${getGameOptionNode(data, 0)}
+      ${getGameOptionNode(data, 1)}
+      ${getGameOptionNode(data, 2)}
     </form>
     <ul class="stats">
       <li class="stats__result stats__result--wrong"></li>
@@ -37,7 +33,7 @@ const gameThreeTemplate = `
     </ul>
   </section>`;
 
-const gameThreeNode = createNodeFromTemplate(gameThreeTemplate);
+const gameThreeNode = createNodeFromTemplate(gameThreeTemplate(GAME_DATA));
 const gameContentNode = gameThreeNode.querySelector(`.game__content`);
 
 gameContentNode.addEventListener(`click`, (evt) => {
