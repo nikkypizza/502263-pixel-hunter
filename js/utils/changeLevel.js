@@ -8,8 +8,11 @@ const INITIAL_GAME = Object.freeze({
   level: 0,
   lives: 3,
   time: gameTimer.time,
+  answers: [],
   statistics: defaultStatsListItems
 });
+
+let INITIAL_GAME_COPY = Object.assign({}, INITIAL_GAME);
 
 const changeLevel = (game, level) => {
   if (typeof level !== `number`) {
@@ -25,4 +28,4 @@ const changeLevel = (game, level) => {
   return newGame;
 };
 
-export {INITIAL_GAME, changeLevel};
+export {INITIAL_GAME, INITIAL_GAME_COPY, changeLevel};
