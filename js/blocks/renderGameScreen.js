@@ -2,7 +2,7 @@ import createNodeFromTemplate from '../utils/createNode.js';
 import {INITIAL_GAME_COPY} from '../utils/changeLevel.js';
 import {GAME_DATA} from '../data/game-data.js';
 import appendNodeToMain from '../utils/appendNode.js';
-import statsNode from './stats.js';
+import statsTemplate from './stats.js';
 import {gameOneTemplate, gameTwoTemplate, gameThreeTemplate} from './gameScreenTemplates.js';
 import updateGameStats from '../utils/updateGameStats.js';
 
@@ -17,10 +17,10 @@ const gameTasks = {
   secondGame: GAME_DATA[1].task,
   thirdGame: GAME_DATA[2].task
 };
-
 const renderGameScreen = (data) => {
-  let currentGameType = gameTypes[data.type];
-  let currentGameScreen = createNodeFromTemplate(currentGameType(data));
+  const statsNode = createNodeFromTemplate(statsTemplate(INITIAL_GAME_COPY.statistics));
+  const currentGameType = gameTypes[data.type];
+  const currentGameScreen = createNodeFromTemplate(currentGameType(data));
 
   const currentGameTask = currentGameScreen.querySelector(`.game__task`).innerHTML;
   const gameAnswers = currentGameScreen.querySelectorAll(`input`);

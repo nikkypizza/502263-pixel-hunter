@@ -1,5 +1,5 @@
 import {gameTasks} from '../blocks/renderGameScreen.js';
-import {GAME_DATA} from '../data/game-data.js';
+import {GAME_DATA, statsAnswerTypeMap} from '../data/game-data.js';
 import {INITIAL_GAME_COPY} from '../utils/changeLevel.js';
 import reducePlayerLives from '../utils/reducePlayerLives.js';
 
@@ -10,30 +10,35 @@ const updateGameStats = (currentScreen, evt) => {
   const evtTargetParent = evt.target.parentNode;
   const evtTargetInput = evtTargetParent.querySelector(`input`);
 
+  const setStatisticsResult = (result) => {
+    INITIAL_GAME_COPY.answers.push(result);
+    INITIAL_GAME_COPY.statistics[INITIAL_GAME_COPY.level] = eval(`statsAnswerTypeMap.${result}`);
+  };
+
   switch (currentGameTask) {
     case gameTasks.firstGame:
       if (checkedInputs[0].value === currentGameScreen.options[0].answer && checkedInputs[1].value === currentGameScreen.options[1].answer) {
-        INITIAL_GAME_COPY.answers.push(`correct`);
+        setStatisticsResult(`correct`);
       } else {
-        INITIAL_GAME_COPY.answers.push(`wrong`);
-        INITIAL_GAME_COPY.lives = reducePlayerLives(INITIAL_GAME_COPY.lives); // действительно ли нам нужна функция которая декрементировать простое чило?
+        setStatisticsResult(`wrong`);
+        INITIAL_GAME_COPY.lives = reducePlayerLives(INITIAL_GAME_COPY.lives);
       }
       break;
 
     case gameTasks.secondGame:
       if (evtTargetInput.value === currentGameScreen.options[0].answer) {
-        INITIAL_GAME_COPY.answers.push(`correct`);
+        setStatisticsResult(`correct`);
       } else {
-        INITIAL_GAME_COPY.answers.push(`wrong`);
+        setStatisticsResult(`wrong`);
         INITIAL_GAME_COPY.lives = reducePlayerLives(INITIAL_GAME_COPY.lives);
       }
       break;
 
     case gameTasks.thirdGame:
       if (evtTargetParent.classList.contains(`game__option--selected`)) {
-        INITIAL_GAME_COPY.answers.push(`correct`);
+        setStatisticsResult(`correct`);
       } else {
-        INITIAL_GAME_COPY.answers.push(`wrong`);
+        setStatisticsResult(`wrong`);
         INITIAL_GAME_COPY.lives = reducePlayerLives(INITIAL_GAME_COPY.lives);
       }
       break;

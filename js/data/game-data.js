@@ -180,4 +180,4 @@ const statsAnswerTypeMap = {
 
 const defaultStatsListItems = new Array(GAME_QUESTIONS_COUNT).fill(statsAnswerTypeMap.unknown);
 
-export {GAME_DATA, defaultStatsListItems};
+export {GAME_DATA, defaultStatsListItems, statsAnswerTypeMap};

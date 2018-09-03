@@ -1,7 +1,7 @@
-import createNodeFromTemplate from '../utils/createNode.js';
-import {INITIAL_GAME_COPY} from '../utils/changeLevel.js';
+// import createNodeFromTemplate from '../utils/createNode.js';
+// import {INITIAL_GAME_COPY} from '../utils/changeLevel.js';
 
-const statsTemplate = `
+const statsTemplate = (statsArr) => `
   <header class="header">
     <button class="back">
       <span class="visually-hidden">Вернуться к началу</span>
@@ -20,7 +20,7 @@ const statsTemplate = `
         <td class="result__number">1.</td>
         <td colspan="2">
           <ul class="stats">
-            ${INITIAL_GAME_COPY.statistics.join(``)}
+            ${statsArr.join(``)}
           </ul>
         </td>
         <td class="result__points">× 100</td>
@@ -52,6 +52,6 @@ const statsTemplate = `
       </tr>
     </table>`;
 
-const statsNode = createNodeFromTemplate(statsTemplate);
+// const statsNode = createNodeFromTemplate(statsTemplate);
 
-export default statsNode;
+export default statsTemplate;
