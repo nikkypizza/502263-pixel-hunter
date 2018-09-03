@@ -1,6 +1,6 @@
 import createNodeFromTemplate from '../utils/createNode.js';
 import appendNodeToMain from '../utils/appendNode.js';
-import renderGameScreen from './renderGameScreen.js';
+import {renderGameScreen} from './renderGameScreen.js';
 import {GAME_DATA} from '../data/game-data.js';
 
 const rulesInlineIcons = {
@@ -15,7 +15,7 @@ const rulesDescriptionsSet = new Set([
   `Ошибиться можно не более 3 раз.`
 ]);
 
-const rulesTemplate = `
+const rulesTemplate = (dataSet) => `
   <header class="header">
     <button class="back">
       <span class="visually-hidden">Вернуться к началу</span>
@@ -30,7 +30,7 @@ const rulesTemplate = `
   <section class="rules">
     <h2 class="rules__title">Правила</h2>
     <ul class="rules__description">
-      ${[...rulesDescriptionsSet].map((it) => `<li>${it}</li>`).join(``)}
+      ${[...dataSet].map((it) => `<li>${it}</li>`).join(``)}
     </ul>
     <p class="rules__ready">Готовы?</p>
     <form class="rules__form">
@@ -39,7 +39,7 @@ const rulesTemplate = `
     </form>
   </section>`;
 
-const rulesNode = createNodeFromTemplate(rulesTemplate);
+const rulesNode = createNodeFromTemplate(rulesTemplate(rulesDescriptionsSet));
 const rulesInput = rulesNode.querySelector(`.rules__input`);
 const rulesSubmitBtn = rulesNode.querySelector(`.rules__button`);
 const rulesForm = rulesNode.querySelector(`.rules__form`);
@@ -49,8 +49,7 @@ rulesInput.addEventListener(`input`, () => {
   rulesSubmitBtn.disabled = rulesInput.value.length === 0;
 });
 
-rulesForm.addEventListener(`submit`, (evt) => {
-  evt.preventDefault();
+rulesForm.addEventListener(`submit`, () => {
   rulesForm.reset();
   appendNodeToMain(renderGameScreen(GAME_DATA[0]));
 });

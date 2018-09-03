@@ -4,6 +4,7 @@ import {GAME_DATA} from '../data/game-data.js';
 import appendNodeToMain from '../utils/appendNode.js';
 import statsNode from './stats.js';
 import {gameOneTemplate, gameTwoTemplate, gameThreeTemplate} from './gameScreenTemplates.js';
+import updateGameStats from '../utils/updateGameStats.js';
 
 const gameTypes = [gameOneTemplate, gameTwoTemplate, gameThreeTemplate];
 const gameTasks = {
@@ -24,8 +25,9 @@ const renderGameScreen = (data) => {
 
   switch (currentGameTask) {
     case gameTasks.firstGame:
-      const renderSecondGame = () => {
+      const renderSecondGame = (evt) => {
         if ([...gameAnswers].filter((el) => el.checked).length === 2) {
+          updateGameStats(currentGameScreen, evt);
           renderFollowingScreen();
         }
       };
@@ -33,14 +35,16 @@ const renderGameScreen = (data) => {
       break;
     case gameTasks.secondGame:
       gameAnswers.forEach((el) => {
-        el.addEventListener(`click`, () => {
+        el.addEventListener(`click`, (evt) => {
+          updateGameStats(currentGameScreen, evt);
           renderFollowingScreen();
         });
       });
       break;
     case gameTasks.thirdGame:
       gameOptions.forEach((el) => {
-        el.addEventListener(`click`, () => {
+        el.addEventListener(`click`, (evt) => {
+          updateGameStats(currentGameScreen, evt);
           renderFollowingScreen();
         });
       });
@@ -48,11 +52,15 @@ const renderGameScreen = (data) => {
   }
 
   const renderFollowingScreen = () => {
-    if (INITIAL_GAME_COPY.lives >= 0 && INITIAL_GAME_COPY.level < 9) {
+    // if (INITIAL_GAME_COPY.lives === 0) {
+    //    отрисовать конечный экран с сообщением о поражении
+    // }
+    if (INITIAL_GAME_COPY.lives > 0 && INITIAL_GAME_COPY.level < 9) {
       INITIAL_GAME_COPY.level++;
       screenLoopCounter = screenLoopCounter !== 2 ? ++screenLoopCounter : 0;
       appendNodeToMain(renderGameScreen(GAME_DATA[screenLoopCounter]));
     } else {
+      INITIAL_GAME_COPY.level++;
       appendNodeToMain(statsNode);
       // TODO - обнулить INITIAL_GAME_COPY, заполнить все данные
     }
@@ -61,4 +69,4 @@ const renderGameScreen = (data) => {
   return currentGameScreen;
 };
 
-export default renderGameScreen;
+export {renderGameScreen, gameTasks, screenLoopCounter};

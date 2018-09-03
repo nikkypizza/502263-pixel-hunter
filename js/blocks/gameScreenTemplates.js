@@ -1,5 +1,5 @@
 import getHeaderNode from './getHeaderNode.js';
-import {INITIAL_GAME} from '../utils/changeLevel.js';
+import {INITIAL_GAME_COPY} from '../utils/changeLevel.js';
 
 const getGameOneOptionNode = (data, optionIndex) => `
   <div class="game__option">
@@ -14,7 +14,7 @@ const getGameOneOptionNode = (data, optionIndex) => `
     </label>
   </div>`;
 const gameOneTemplate = (data) => `
-  ${getHeaderNode(INITIAL_GAME)}
+  ${getHeaderNode(INITIAL_GAME_COPY)}
   <section class="game">
     <p class="game__task">${data.task}</p>
     <form class="game__content">
@@ -22,12 +22,12 @@ const gameOneTemplate = (data) => `
       ${getGameOneOptionNode(data, 1)}
     </form>
     <ul class="stats">
-      ${INITIAL_GAME.statistics.join(``)}
+      ${INITIAL_GAME_COPY.statistics.join(``)}
     </ul>
   </section>`;
 
 const gameTwoTemplate = (data) => `
-  ${getHeaderNode(INITIAL_GAME)}
+  ${getHeaderNode(INITIAL_GAME_COPY)}
   <section class="game">
     <p class="game__task">${data.task}</p>
     <form class="game__content  game__content--wide">
@@ -44,16 +44,16 @@ const gameTwoTemplate = (data) => `
       </div>
     </form>
     <ul class="stats">
-      ${INITIAL_GAME.statistics.join(``)}
+      ${INITIAL_GAME_COPY.statistics.join(``)}
     </ul>
   </section>`;
 
 const gameThreeTemplate = (data) => `
-  ${getHeaderNode(INITIAL_GAME)}
+  ${getHeaderNode(INITIAL_GAME_COPY)}
   <section class="game">
     <p class="game__task">${data.task}</p>
     <form class="game__content  game__content--triple">
-  <div class="game__option">
+  <div class="game__option game__option--selected">
     <img src="${data.options[0].src}" alt="${data.options[0].alt}" width="304" height="455">
   </div>
   <div class="game__option">
@@ -64,7 +64,7 @@ const gameThreeTemplate = (data) => `
   </div>
     </form>
     <ul class="stats">
-      ${INITIAL_GAME.statistics.join(``)}
+      ${INITIAL_GAME_COPY.statistics.join(``)}
     </ul>
   </section>`;
 
