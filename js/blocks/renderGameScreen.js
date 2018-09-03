@@ -18,7 +18,8 @@ const gameTasks = {
   thirdGame: GAME_DATA[2].task
 };
 const renderGameScreen = (data) => {
-  const statsNode = createNodeFromTemplate(statsTemplate(INITIAL_GAME_COPY.statistics));
+  const statsNodeWin = createNodeFromTemplate(statsTemplate(INITIAL_GAME_COPY.statistics));
+  const statsNodeFail = createNodeFromTemplate(statsTemplate(INITIAL_GAME_COPY.statistics, true));
   const currentGameType = gameTypes[data.type];
   const currentGameScreen = createNodeFromTemplate(currentGameType(data));
 
@@ -56,16 +57,18 @@ const renderGameScreen = (data) => {
   }
 
   const renderFollowingScreen = () => {
-    // if (INITIAL_GAME_COPY.lives === 0) {
-    //    отрисовать конечный экран с сообщением о поражении
-    // }
-    if (INITIAL_GAME_COPY.lives > 0 && INITIAL_GAME_COPY.level < 9) {
+    if (INITIAL_GAME_COPY.lives <= 0) {
+      appendNodeToMain(statsNodeFail);
+      // обнулить INITIAL_GAME_COPY
+      return;
+    }
+    if (INITIAL_GAME_COPY.lives > 0 && INITIAL_GAME_COPY.level < GAME_DATA.length - 1) {
       INITIAL_GAME_COPY.level++;
       appendNodeToMain(renderGameScreen(GAME_DATA[INITIAL_GAME_COPY.level]));
     } else {
       INITIAL_GAME_COPY.level++;
-      appendNodeToMain(statsNode);
-      // TODO - обнулить INITIAL_GAME_COPY, заполнить все данные
+      appendNodeToMain(statsNodeWin);
+      // обнулить INITIAL_GAME_COPY
     }
   };
 

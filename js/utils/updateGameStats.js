@@ -17,7 +17,8 @@ const updateGameStats = (currentScreen, evt) => {
 
   switch (currentGameTask) {
     case gameTasks.firstGame:
-      if (checkedInputs[0].value === currentGameScreen.options[0].answer && checkedInputs[1].value === currentGameScreen.options[1].answer) {
+      if (checkedInputs[0].value === currentGameScreen.options[0].answer &&
+          checkedInputs[1].value === currentGameScreen.options[1].answer) {
         setStatisticsResult(`correct`);
       } else {
         setStatisticsResult(`wrong`);
