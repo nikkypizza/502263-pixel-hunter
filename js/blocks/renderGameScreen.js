@@ -6,16 +6,20 @@ import statsNode from './stats.js';
 import {gameOneTemplate, gameTwoTemplate, gameThreeTemplate} from './gameScreenTemplates.js';
 import updateGameStats from '../utils/updateGameStats.js';
 
-const gameTypes = [gameOneTemplate, gameTwoTemplate, gameThreeTemplate];
+const gameTypes = {
+  doubleQuestion: gameOneTemplate,
+  singleQuestion: gameTwoTemplate,
+  tripleQuestion: gameThreeTemplate
+};
+
 const gameTasks = {
   firstGame: GAME_DATA[0].task,
   secondGame: GAME_DATA[1].task,
   thirdGame: GAME_DATA[2].task
 };
 
-let screenLoopCounter = 0;
 const renderGameScreen = (data) => {
-  let currentGameType = gameTypes[data.level];
+  let currentGameType = gameTypes[data.type];
   let currentGameScreen = createNodeFromTemplate(currentGameType(data));
 
   const currentGameTask = currentGameScreen.querySelector(`.game__task`).innerHTML;
@@ -57,8 +61,7 @@ const renderGameScreen = (data) => {
     // }
     if (INITIAL_GAME_COPY.lives > 0 && INITIAL_GAME_COPY.level < 9) {
       INITIAL_GAME_COPY.level++;
-      screenLoopCounter = screenLoopCounter !== 2 ? ++screenLoopCounter : 0;
-      appendNodeToMain(renderGameScreen(GAME_DATA[screenLoopCounter]));
+      appendNodeToMain(renderGameScreen(GAME_DATA[INITIAL_GAME_COPY.level]));
     } else {
       INITIAL_GAME_COPY.level++;
       appendNodeToMain(statsNode);
@@ -69,4 +72,4 @@ const renderGameScreen = (data) => {
   return currentGameScreen;
 };
 
-export {renderGameScreen, gameTasks, screenLoopCounter};
+export {renderGameScreen, gameTasks};

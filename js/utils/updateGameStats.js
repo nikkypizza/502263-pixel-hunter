@@ -1,10 +1,10 @@
-import {gameTasks, screenLoopCounter} from '../blocks/renderGameScreen.js';
+import {gameTasks} from '../blocks/renderGameScreen.js';
 import {GAME_DATA} from '../data/game-data.js';
 import {INITIAL_GAME_COPY} from '../utils/changeLevel.js';
 import reducePlayerLives from '../utils/reducePlayerLives.js';
 
 const updateGameStats = (currentScreen, evt) => {
-  const currentGameScreen = GAME_DATA[screenLoopCounter];
+  const currentGameScreen = GAME_DATA[INITIAL_GAME_COPY.level];
   const currentGameTask = currentScreen.querySelector(`.game__task`).innerHTML;
   const checkedInputs = currentScreen.querySelectorAll(`input:checked`);
   const evtTargetParent = evt.target.parentNode;
