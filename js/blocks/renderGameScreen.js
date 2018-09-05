@@ -58,10 +58,10 @@ const renderGameScreen = (data) => {
   }
 
   const renderFollowingScreen = () => {
-    let currentStatistics = getGameStatisticsNodes(currentGame.statistics);
+    let currentStatisticsNodes = getGameStatisticsNodes(currentGame.statistics);
 
     if (currentGame.lives <= 0) {
-      const statsNodeFail = createNodeFromTemplate(statsTemplate(currentStatistics, true));
+      const statsNodeFail = createNodeFromTemplate(statsTemplate(currentStatisticsNodes, true));
       appendNodeToMain(statsNodeFail);
       // обнулить currentGame
       return;
@@ -70,7 +70,7 @@ const renderGameScreen = (data) => {
       currentGame.level++;
       appendNodeToMain(renderGameScreen(GAME_DATA[currentGame.level]));
     } else {
-      const statsNodeWin = createNodeFromTemplate(statsTemplate(currentStatistics));
+      const statsNodeWin = createNodeFromTemplate(statsTemplate(currentStatisticsNodes));
       currentGame.level++;
       appendNodeToMain(statsNodeWin);
       // обнулить currentGame

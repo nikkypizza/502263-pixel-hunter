@@ -4,7 +4,12 @@ import {currentGame} from '../utils/changeLevel.js';
 import reducePlayerLives from '../utils/reducePlayerLives.js';
 
 const setStatisticsResult = (result) => {
-  currentGame.answers.push(result);
+  let answerItem = {
+    answerIsTrue: result === `correct` ? true : false,
+    answerTime: currentGame.time / 1000,
+    quality: currentGame.time > 20 ? `slow` : `fast`
+  };
+  currentGame.answers.push(answerItem);
   currentGame.statistics[currentGame.level] = result;
 };
 

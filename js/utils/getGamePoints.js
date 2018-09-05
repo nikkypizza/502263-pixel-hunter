@@ -17,14 +17,16 @@ const getGamePoints = (questionsArr, livesLeft) => {
   }
   // Test #2
   questionsArr.forEach((el) => {
-    if (el.answerTime < answerTimeMap.MIN_TIME) {
-      gamePoints += answerPointsMap.RIGHT_FAST_ANSWER; // Ответ быстрее 10 сек += 150 очков
-    }
-    if (el.answerTime >= answerTimeMap.MIN_TIME && el.answerTime <= answerTimeMap.MAX_TIME) {
-      gamePoints += answerPointsMap.RIGHT_ANSWER; // Ответ между 10 и 20 сек += 100 очков
-    }
-    if (el.answerTime > answerTimeMap.MAX_TIME) {
-      gamePoints += answerPointsMap.RIGHT_SLOW_ANSWER; // Ответ дольше 20 сек += 50 очков
+    if (el.answerIsTrue) {
+      if (el.answerTime < answerTimeMap.MIN_TIME) {
+        gamePoints += answerPointsMap.RIGHT_FAST_ANSWER; // Ответ быстрее 10 сек += 150 очков
+      }
+      if (el.answerTime >= answerTimeMap.MIN_TIME && el.answerTime <= answerTimeMap.MAX_TIME) {
+        gamePoints += answerPointsMap.RIGHT_ANSWER; // Ответ между 10 и 20 сек += 100 очков
+      }
+      if (el.answerTime > answerTimeMap.MAX_TIME) {
+        gamePoints += answerPointsMap.RIGHT_SLOW_ANSWER; // Ответ дольше 20 сек += 50 очков
+      }
     }
   });
 

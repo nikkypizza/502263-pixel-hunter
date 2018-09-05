@@ -1,4 +1,7 @@
-const statsTemplate = (statsArr, isFail) => {
+import {currentGame} from '../utils/changeLevel.js';
+import getGamePoints from '../utils/getGamePoints.js';
+
+const statsTemplate = (statsNodesArr, isFail) => {
   if (isFail) {
     return `
     <header class="header">
@@ -19,7 +22,7 @@ const statsTemplate = (statsArr, isFail) => {
           <td class="result__number"></td>
           <td>
             <ul class="stats">
-              ${statsArr.join(``)}
+              ${statsNodesArr.join(``)}
             </ul>
           </td>
           <td class="result__total"></td>
@@ -29,6 +32,16 @@ const statsTemplate = (statsArr, isFail) => {
     </section>
     `;
   }
+  let trueAnswers = currentGame.answers.filter((answer) => {
+    return answer.answerIsTrue;
+  });
+  let fastAnswers = currentGame.answers.filter((answer) => {
+    return answer.quality === `fast` && answer.answerIsTrue;
+  });
+  let slowAnswers = currentGame.answers.filter((answer) => {
+    return answer.quality === `slow` && answer.answerIsTrue;
+  });
+
   return `
   <header class="header">
     <button class="back">
@@ -48,35 +61,35 @@ const statsTemplate = (statsArr, isFail) => {
         <td class="result__number"></td>
         <td colspan="2">
           <ul class="stats">
-            ${statsArr.join(``)}
+            ${statsNodesArr.join(``)}
           </ul>
         </td>
         <td class="result__points">× 100</td>
-        <td class="result__total">900</td>
+        <td class="result__total">${trueAnswers.length * 100}</td>
       </tr>
       <tr>
         <td></td>
         <td class="result__extra">Бонус за скорость:</td>
-        <td class="result__extra">0<span class="stats__result stats__result--fast"></span></td>
+        <td class="result__extra">${fastAnswers.length}<span class="stats__result stats__result--fast"></span></td>
         <td class="result__points">× 50</td>
-        <td class="result__total">0</td>
+        <td class="result__total">${fastAnswers.length * 50}</td>
       </tr>
       <tr>
         <td></td>
         <td class="result__extra">Бонус за жизни:</td>
-        <td class="result__extra">0<span class="stats__result stats__result--alive"></span></td>
+        <td class="result__extra">${currentGame.lives}<span class="stats__result stats__result--alive"></span></td>
         <td class="result__points">× 50</td>
-        <td class="result__total">100</td>
+        <td class="result__total">+ ${currentGame.lives * 50}</td>
       </tr>
       <tr>
         <td></td>
         <td class="result__extra">Штраф за медлительность:</td>
-        <td class="result__extra">2 <span class="stats__result stats__result--slow"></span></td>
+        <td class="result__extra">${slowAnswers.length}<span class="stats__result stats__result--slow"></span></td>
         <td class="result__points">× 50</td>
-        <td class="result__total">-100</td>
+        <td class="result__total">- ${slowAnswers.length * 50}</td>
       </tr>
       <tr>
-        <td colspan="5" class="result__total  result__total--final">950</td>
+        <td colspan="5" class="result__total  result__total--final">${getGamePoints(currentGame.answers, currentGame.lives)}</td>
       </tr>
     </table>
   </section>
