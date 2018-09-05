@@ -10,7 +10,7 @@ const setStatisticsResult = (result) => {
     quality: currentGame.time > 20 ? `slow` : `fast`
   };
   currentGame.answers.push(answerItem);
-  currentGame.statistics[currentGame.level] = result;
+  currentGame.statistics[currentGame.level] = answerItem.answerIsTrue ? answerItem.quality : result;
 };
 
 const updateGameStats = (currentScreen, evt) => {
