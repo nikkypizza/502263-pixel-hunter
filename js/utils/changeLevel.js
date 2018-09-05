@@ -1,5 +1,5 @@
 import IngameTimer from './IngameTimer.js';
-import {defaultStatsListItems} from '../data/game-data.js';
+import {STATS_DATA} from '../data/game-data.js';
 
 const TIME_TO_ANSWER_MILLISECONDS = 30000;
 let gameTimer = new IngameTimer(TIME_TO_ANSWER_MILLISECONDS);
@@ -9,10 +9,10 @@ const INITIAL_GAME = Object.freeze({
   lives: 3,
   time: gameTimer.time,
   answers: [],
-  statistics: defaultStatsListItems
+  statistics: STATS_DATA
 });
 
-let INITIAL_GAME_COPY = Object.assign({}, INITIAL_GAME);
+let currentGame = Object.assign({}, INITIAL_GAME);
 
 const changeLevel = (game, level) => {
   if (typeof level !== `number`) {
@@ -28,4 +28,4 @@ const changeLevel = (game, level) => {
   return newGame;
 };
 
-export {INITIAL_GAME, INITIAL_GAME_COPY, changeLevel};
+export {INITIAL_GAME, currentGame, changeLevel};

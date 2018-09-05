@@ -1,37 +1,38 @@
 import {gameTasks} from '../blocks/renderGameScreen.js';
-import {GAME_DATA, statsAnswerTypeMap} from '../data/game-data.js';
-import {INITIAL_GAME_COPY} from '../utils/changeLevel.js';
+import {GAME_DATA} from '../data/game-data.js';
+import {currentGame} from '../utils/changeLevel.js';
 import reducePlayerLives from '../utils/reducePlayerLives.js';
 
-const updateGameStats = (currentScreen, evt) => {
-  const currentGameScreen = GAME_DATA[INITIAL_GAME_COPY.level];
-  const currentGameTask = currentScreen.querySelector(`.game__task`).innerHTML;
-  const checkedInputs = currentScreen.querySelectorAll(`input:checked`);
-  const evtTargetParent = evt.target.parentNode;
-  const evtTargetInput = evtTargetParent.querySelector(`input`);
+const setStatisticsResult = (result) => {
+  currentGame.answers.push(result);
+  currentGame.statistics[currentGame.level] = result;
+};
 
-  const setStatisticsResult = (result) => {
-    INITIAL_GAME_COPY.answers.push(result);
-    INITIAL_GAME_COPY.statistics[INITIAL_GAME_COPY.level] = eval(`statsAnswerTypeMap.${result}`);
-  };
+const updateGameStats = (currentScreen, evt) => {
+  const currentGameScreen = GAME_DATA[currentGame.level];
+  const currentGameTask = currentScreen.querySelector(`.game__task`).innerHTML;
+  const evtTargetParent = evt.target.parentNode;
 
   switch (currentGameTask) {
     case gameTasks.firstGame:
+      const checkedInputs = currentScreen.querySelectorAll(`input:checked`);
       if (checkedInputs[0].value === currentGameScreen.options[0].answer &&
           checkedInputs[1].value === currentGameScreen.options[1].answer) {
         setStatisticsResult(`correct`);
       } else {
         setStatisticsResult(`wrong`);
-        INITIAL_GAME_COPY.lives = reducePlayerLives(INITIAL_GAME_COPY.lives);
+        currentGame.lives = reducePlayerLives(currentGame.lives);
       }
       break;
 
     case gameTasks.secondGame:
+      const evtTargetInput = evtTargetParent.querySelector(`input`);
+
       if (evtTargetInput.value === currentGameScreen.options[0].answer) {
         setStatisticsResult(`correct`);
       } else {
         setStatisticsResult(`wrong`);
-        INITIAL_GAME_COPY.lives = reducePlayerLives(INITIAL_GAME_COPY.lives);
+        currentGame.lives = reducePlayerLives(currentGame.lives);
       }
       break;
 
@@ -40,7 +41,7 @@ const updateGameStats = (currentScreen, evt) => {
         setStatisticsResult(`correct`);
       } else {
         setStatisticsResult(`wrong`);
-        INITIAL_GAME_COPY.lives = reducePlayerLives(INITIAL_GAME_COPY.lives);
+        currentGame.lives = reducePlayerLives(currentGame.lives);
       }
       break;
   }

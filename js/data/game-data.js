@@ -170,14 +170,6 @@ const GAME_DATA = [
 ];
 
 const GAME_QUESTIONS_COUNT = 10;
-const statsAnswerTypeMap = {
-  correct: `<li class="stats__result stats__result--correct"></li>`,
-  fast: `<li class="stats__result stats__result--fast"></li>`,
-  slow: `<li class="stats__result stats__result--slow"></li>`,
-  wrong: `<li class="stats__result stats__result--wrong"></li>`,
-  unknown: `<li class="stats__result stats__result--unknown"></li>`,
-};
+const STATS_DATA = new Array(GAME_QUESTIONS_COUNT).fill(`unknown`);
 
-const defaultStatsListItems = new Array(GAME_QUESTIONS_COUNT).fill(statsAnswerTypeMap.unknown);
-
-export {GAME_DATA, defaultStatsListItems, statsAnswerTypeMap};
+export {GAME_DATA, STATS_DATA};

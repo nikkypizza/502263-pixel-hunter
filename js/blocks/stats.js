@@ -1,6 +1,3 @@
-// import createNodeFromTemplate from '../utils/createNode.js';
-// import {INITIAL_GAME_COPY} from '../utils/changeLevel.js';
-
 const statsTemplate = (statsArr, isFail) => {
   if (isFail) {
     return `
@@ -67,7 +64,7 @@ const statsTemplate = (statsArr, isFail) => {
       <tr>
         <td></td>
         <td class="result__extra">Бонус за жизни:</td>
-        <td class="result__extra">@<span class="stats__result stats__result--alive"></span></td>
+        <td class="result__extra">0<span class="stats__result stats__result--alive"></span></td>
         <td class="result__points">× 50</td>
         <td class="result__total">100</td>
       </tr>

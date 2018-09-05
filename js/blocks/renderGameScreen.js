@@ -1,10 +1,11 @@
 import createNodeFromTemplate from '../utils/createNode.js';
-import {INITIAL_GAME_COPY} from '../utils/changeLevel.js';
+import {currentGame} from '../utils/changeLevel.js';
 import {GAME_DATA} from '../data/game-data.js';
 import appendNodeToMain from '../utils/appendNode.js';
 import statsTemplate from './stats.js';
 import {gameOneTemplate, gameTwoTemplate, gameThreeTemplate} from './gameScreenTemplates.js';
 import updateGameStats from '../utils/updateGameStats.js';
+import {getGameStatisticsNodes} from './getGameStatistics.js';
 
 const gameTypes = {
   doubleQuestion: gameOneTemplate,
@@ -17,19 +18,17 @@ const gameTasks = {
   secondGame: GAME_DATA[1].task,
   thirdGame: GAME_DATA[2].task
 };
+
 const renderGameScreen = (data) => {
-  const statsNodeWin = createNodeFromTemplate(statsTemplate(INITIAL_GAME_COPY.statistics));
-  const statsNodeFail = createNodeFromTemplate(statsTemplate(INITIAL_GAME_COPY.statistics, true));
   const currentGameType = gameTypes[data.type];
   const currentGameScreen = createNodeFromTemplate(currentGameType(data));
-
   const currentGameTask = currentGameScreen.querySelector(`.game__task`).innerHTML;
   const gameAnswers = currentGameScreen.querySelectorAll(`input`);
-  const gameOptions = currentGameScreen.querySelectorAll(`.game__option`);
-  const gameForm = currentGameScreen.querySelector(`form`);
 
   switch (currentGameTask) {
     case gameTasks.firstGame:
+      const gameForm = currentGameScreen.querySelector(`form`);
+
       const renderSecondGame = (evt) => {
         if ([...gameAnswers].filter((el) => el.checked).length === 2) {
           updateGameStats(currentGameScreen, evt);
@@ -47,6 +46,8 @@ const renderGameScreen = (data) => {
       });
       break;
     case gameTasks.thirdGame:
+      const gameOptions = currentGameScreen.querySelectorAll(`.game__option`);
+
       gameOptions.forEach((el) => {
         el.addEventListener(`click`, (evt) => {
           updateGameStats(currentGameScreen, evt);
@@ -57,18 +58,22 @@ const renderGameScreen = (data) => {
   }
 
   const renderFollowingScreen = () => {
-    if (INITIAL_GAME_COPY.lives <= 0) {
+    let currentStatistics = getGameStatisticsNodes(currentGame.statistics);
+
+    if (currentGame.lives <= 0) {
+      const statsNodeFail = createNodeFromTemplate(statsTemplate(currentStatistics, true));
       appendNodeToMain(statsNodeFail);
-      // обнулить INITIAL_GAME_COPY
+      // обнулить currentGame
       return;
     }
-    if (INITIAL_GAME_COPY.lives > 0 && INITIAL_GAME_COPY.level < GAME_DATA.length - 1) {
-      INITIAL_GAME_COPY.level++;
-      appendNodeToMain(renderGameScreen(GAME_DATA[INITIAL_GAME_COPY.level]));
+    if (currentGame.lives > 0 && currentGame.level < GAME_DATA.length - 1) {
+      currentGame.level++;
+      appendNodeToMain(renderGameScreen(GAME_DATA[currentGame.level]));
     } else {
-      INITIAL_GAME_COPY.level++;
+      const statsNodeWin = createNodeFromTemplate(statsTemplate(currentStatistics));
+      currentGame.level++;
       appendNodeToMain(statsNodeWin);
-      // обнулить INITIAL_GAME_COPY
+      // обнулить currentGame
     }
   };
 
