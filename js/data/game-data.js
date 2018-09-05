@@ -169,7 +169,6 @@ const GAME_DATA = [
   }
 ];
 
-const GAME_QUESTIONS_COUNT = 10;
-const STATS_DATA = new Array(GAME_QUESTIONS_COUNT).fill(`unknown`);
+const STATS_DATA = new Array(GAME_DATA.length).fill(`unknown`);
 
 export {GAME_DATA, STATS_DATA};
