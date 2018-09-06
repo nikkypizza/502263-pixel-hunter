@@ -1,12 +1,12 @@
 import {assert} from 'chai';
-import getGamePoints from '../utils/getGamePoints.js';
+import getGamePoints from '../utils/get-game-points.js';
 
 const MAX_LIVES = 3;
 const mockQuestionsArr = (minAnswerTime, maxArrElements = 10) => {
-  let questionsArr = [];
+  const questionsArr = [];
   for (let i = 0; i < maxArrElements; i++) {
-    let questionsArrEl = {
-      answerIsTrue: true,
+    const questionsArrEl = {
+      isCorrect: true,
       answerTime: minAnswerTime + i
     };
     questionsArr.push(questionsArrEl);

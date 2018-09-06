@@ -1,11 +1,11 @@
-import createNodeFromTemplate from '../utils/createNode.js';
-import {currentGame} from '../utils/changeLevel.js';
+import createNodeFromTemplate from '../utils/create-node.js';
+import {currentGame} from '../utils/change-level.js';
 import {GAME_DATA} from '../data/game-data.js';
-import appendNodeToMain from '../utils/appendNode.js';
+import appendNodeToMain from '../utils/append-node.js';
 import statsTemplate from './stats.js';
-import {gameOneTemplate, gameTwoTemplate, gameThreeTemplate} from './gameScreenTemplates.js';
-import updateGameStats from '../utils/updateGameStats.js';
-import {getGameStatisticsNodes} from './getGameStatistics.js';
+import {gameOneTemplate, gameTwoTemplate, gameThreeTemplate} from './game-screen-templates.js';
+import updateGameStats from '../utils/update-game-stats.js';
+import {getGameStatisticsNodes} from './get-game-statistics.js';
 
 const gameTypes = {
   doubleQuestion: gameOneTemplate,
@@ -58,7 +58,7 @@ const renderGameScreen = (data) => {
   }
 
   const renderFollowingScreen = () => {
-    let currentStatisticsNodes = getGameStatisticsNodes(currentGame.statistics);
+    const currentStatisticsNodes = getGameStatisticsNodes(currentGame.statistics);
 
     if (currentGame.lives <= 0) {
       const statsNodeFail = createNodeFromTemplate(statsTemplate(currentStatisticsNodes, true));

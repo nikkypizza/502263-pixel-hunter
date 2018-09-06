@@ -1,5 +1,5 @@
-import {currentGame} from '../utils/changeLevel.js';
-import getGamePoints from '../utils/getGamePoints.js';
+import {currentGame} from '../utils/change-level.js';
+import getGamePoints from '../utils/get-game-points.js';
 
 const statsTemplate = (statsNodesArr, isFail) => {
   if (isFail) {
@@ -32,14 +32,14 @@ const statsTemplate = (statsNodesArr, isFail) => {
     </section>
     `;
   }
-  let trueAnswers = currentGame.answers.filter((answer) => {
-    return answer.answerIsTrue;
+  const correctAnswers = currentGame.answers.filter((answer) => {
+    return answer.isCorrect;
   });
-  let fastAnswers = currentGame.answers.filter((answer) => {
-    return answer.quality === `fast` && answer.answerIsTrue;
+  const fastAnswers = currentGame.answers.filter((answer) => {
+    return answer.isCorrect && answer.quality === `fast`;
   });
-  let slowAnswers = currentGame.answers.filter((answer) => {
-    return answer.quality === `slow` && answer.answerIsTrue;
+  const slowAnswers = currentGame.answers.filter((answer) => {
+    return answer.isCorrect && answer.quality === `slow`;
   });
 
   return `
@@ -65,7 +65,7 @@ const statsTemplate = (statsNodesArr, isFail) => {
           </ul>
         </td>
         <td class="result__points">× 100</td>
-        <td class="result__total">${trueAnswers.length * 100}</td>
+        <td class="result__total">${correctAnswers.length * 100}</td>
       </tr>
       <tr>
         <td></td>

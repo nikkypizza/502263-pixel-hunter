@@ -17,7 +17,7 @@ const getGamePoints = (questionsArr, livesLeft) => {
   }
   // Test #2
   questionsArr.forEach((el) => {
-    if (el.answerIsTrue) {
+    if (el.isCorrect) {
       if (el.answerTime < answerTimeMap.MIN_TIME) {
         gamePoints += answerPointsMap.RIGHT_FAST_ANSWER; // Ответ быстрее 10 сек += 150 очков
       }

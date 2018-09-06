@@ -1,4 +1,4 @@
-import createNodeFromTemplate from '../utils/createNode.js';
+import createNodeFromTemplate from '../utils/create-node.js';
 
 const modalConfirmTemplate = `
   <section class="modal">

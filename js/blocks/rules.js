@@ -1,6 +1,6 @@
-import createNodeFromTemplate from '../utils/createNode.js';
-import appendNodeToMain from '../utils/appendNode.js';
-import {renderGameScreen} from './renderGameScreen.js';
+import createNodeFromTemplate from '../utils/create-node.js';
+import appendNodeToMain from '../utils/append-node.js';
+import {renderGameScreen} from './render-game-screen.js';
 import {GAME_DATA} from '../data/game-data.js';
 
 const rulesInlineIcons = {

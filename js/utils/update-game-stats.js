@@ -1,16 +1,16 @@
-import {gameTasks} from '../blocks/renderGameScreen.js';
+import {gameTasks} from '../blocks/render-game-screen.js';
 import {GAME_DATA} from '../data/game-data.js';
-import {currentGame} from '../utils/changeLevel.js';
-import reducePlayerLives from '../utils/reducePlayerLives.js';
+import {currentGame} from '../utils/change-level.js';
+import reducePlayerLives from '../utils/reduce-player-lives.js';
 
 const setStatisticsResult = (result) => {
-  let answerItem = {
-    answerIsTrue: result === `correct` ? true : false,
+  const answerItem = {
+    isCorrect: result === `correct` ? true : false,
     answerTime: currentGame.time / 1000,
     quality: currentGame.time > 20 ? `slow` : `fast`
   };
   currentGame.answers.push(answerItem);
-  currentGame.statistics[currentGame.level] = answerItem.answerIsTrue ? answerItem.quality : result;
+  currentGame.statistics[currentGame.level] = answerItem.isCorrect ? answerItem.quality : result;
 };
 
 const updateGameStats = (currentScreen, evt) => {

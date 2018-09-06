@@ -1,6 +1,6 @@
-import getHeaderNode from './getHeaderNode.js';
-import {currentGame} from '../utils/changeLevel.js';
-import {getGameStatisticsNodes} from './getGameStatistics.js';
+import getHeaderNode from './get-header-node.js';
+import {currentGame} from '../utils/change-level.js';
+import {getGameStatisticsNodes} from './get-game-statistics.js';
 
 const getGameOneOptionNode = (data, optionIndex) => `
   <div class="game__option">

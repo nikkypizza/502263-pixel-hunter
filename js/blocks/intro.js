@@ -1,5 +1,5 @@
-import createNodeFromTemplate from '../utils/createNode.js';
-import appendNodeToMain from '../utils/appendNode.js';
+import createNodeFromTemplate from '../utils/create-node.js';
+import appendNodeToMain from '../utils/append-node.js';
 import greetingNode from './greeting.js';
 
 const introDescription = `Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.`;

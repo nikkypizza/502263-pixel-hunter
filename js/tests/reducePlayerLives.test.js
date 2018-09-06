@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import reducePlayerLives from '../utils/reducePlayerLives.js';
+import reducePlayerLives from '../utils/reduce-player-lives.js';
 
 describe(`reducePlayerLives()`, () => {
   describe(`1) Reduce Player Lives`, () => {
