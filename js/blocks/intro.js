@@ -1,4 +1,4 @@
-import AbstractView from "./Abstract";
+import AbstractView from './Abstract';
 
 class IntroScreen extends AbstractView {
   constructor() {
@@ -13,7 +13,8 @@ class IntroScreen extends AbstractView {
     </section>`;
   }
 
-  onClick() {}
+  onClick() {
+  }
 
   bind() {
     this.element.querySelector(`.intro__asterisk`).addEventListener(`click`, () => {
