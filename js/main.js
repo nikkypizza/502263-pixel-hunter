@@ -1,5 +1,9 @@
 import appendNodeToMain from './utils/append-node.js';
-import introNode from './blocks/intro.js';
+import IntroScreen from './blocks/intro.js';
 
-// Отрисовывает стартовый экран
-appendNodeToMain(introNode);
+const intro = new IntroScreen();
+intro.onClick = () => {
+  // console.log(`42`);
+};
+
+appendNodeToMain(intro.element);

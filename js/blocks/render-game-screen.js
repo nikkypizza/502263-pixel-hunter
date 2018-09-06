@@ -3,7 +3,7 @@ import {currentGame} from '../utils/change-level.js';
 import {GAME_DATA} from '../data/game-data.js';
 import appendNodeToMain from '../utils/append-node.js';
 import statsTemplate from './stats.js';
-import {gameOneTemplate, gameTwoTemplate, gameThreeTemplate} from './game-screen-templates.js';
+import {gameOneTemplate, gameTwoTemplate, gameThreeTemplate} from './game-screens.js';
 import updateGameStats from '../utils/update-game-stats.js';
 import {getGameStatisticsNodes} from './get-game-statistics.js';
 

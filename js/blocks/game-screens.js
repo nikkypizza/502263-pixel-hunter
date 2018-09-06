@@ -1,4 +1,4 @@
-import getHeaderNode from './get-header-node.js';
+import getHeaderNode from './header.js';
 import {currentGame} from '../utils/change-level.js';
 import {getGameStatisticsNodes} from './get-game-statistics.js';
 
