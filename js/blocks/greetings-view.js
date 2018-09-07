@@ -1,6 +1,6 @@
-import AbstractView from "./Abstract";
+import AbstractView from "./abstract-view.js";
 
-class GreetingsScreen extends AbstractView {
+export default class GreetingsView extends AbstractView {
   constructor() {
     super();
   }
@@ -38,5 +38,3 @@ class GreetingsScreen extends AbstractView {
     });
   }
 }
-
-export default GreetingsScreen;

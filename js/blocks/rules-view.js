@@ -1,6 +1,6 @@
-import AbstractView from "./Abstract";
+import AbstractView from "./abstract-view.js";
 
-class RulesScreen extends AbstractView {
+export default class RulesView extends AbstractView {
   constructor() {
     super();
   }
@@ -29,20 +29,18 @@ class RulesScreen extends AbstractView {
   }
 
   bind() {
-    const rulesInput = this.element.querySelector(`.rules__input`);
-    const rulesSubmitBtn = this.element.querySelector(`.rules__button`);
-    const rulesForm = this.element.querySelector(`.rules__form`);
+    const form = this.element.querySelector(`.rules__form`);
+    const input = form.querySelector(`.rules__input`);
+    const submitBtn = form.querySelector(`.rules__button`);
 
-    // Кнопка активна, если инпут не пуст
-    rulesInput.addEventListener(`input`, () => {
-      rulesSubmitBtn.disabled = rulesInput.value.length === 0;
+    form.addEventListener(`submit`, () => {
+      form.reset();
+      this.onSubmit();
     });
 
-    rulesForm.addEventListener(`submit`, () => {
-      rulesForm.reset();
-      this.onSubmit();
+    // Кнопка активна, если инпут не пуст
+    input.addEventListener(`input`, () => {
+      submitBtn.disabled = input.value.length === 0;
     });
   }
 }
-
-export default RulesScreen;

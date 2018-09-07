@@ -8,7 +8,7 @@ const statsAnswerTypeMap = {
 
 const getGameStatisticsNodes = (data) => {
   const gameStatsArr = [];
-  data.forEach((el) => {
+  data.statistics.forEach((el) => {
     gameStatsArr.push(statsAnswerTypeMap[el]);
   });
 
