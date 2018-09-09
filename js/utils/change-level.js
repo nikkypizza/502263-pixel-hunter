@@ -1,4 +1,4 @@
-import IngameTimer from './IngameTimer.js';
+import IngameTimer from './ingame-timer.js';
 import {STATS_DATA} from '../data/game-data.js';
 
 const TIME_TO_ANSWER_MILLISECONDS = 30000;

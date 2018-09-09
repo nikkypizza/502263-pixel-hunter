@@ -1,5 +1,5 @@
-import appendNodeToMain from './utils/appendNode.js';
-import introNode from './blocks/intro.js';
+import appendNodeToMain from './utils/append-node.js';
+import IntroScreen from './blocks/intro-view.js';
 
-// Отрисовывает стартовый экран
-appendNodeToMain(introNode);
+const intro = new IntroScreen();
+appendNodeToMain(intro.element);

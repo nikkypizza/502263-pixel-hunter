@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import IngameTimer from '../utils/IngameTimer.js';
+import IngameTimer from '../utils/ingame-timer.js';
 
 let callbackState = `not active`;
 const sayHello = function () {

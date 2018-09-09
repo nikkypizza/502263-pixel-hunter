@@ -6,9 +6,9 @@ const statsAnswerTypeMap = {
   unknown: `<li class="stats__result stats__result--unknown"></li>`,
 };
 
-let getGameStatisticsNodes = (data) => {
-  let gameStatsArr = [];
-  data.forEach((el) => {
+const getGameStatisticsNodes = (data) => {
+  const gameStatsArr = [];
+  data.statistics.forEach((el) => {
     gameStatsArr.push(statsAnswerTypeMap[el]);
   });
 
