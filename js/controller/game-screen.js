@@ -2,37 +2,39 @@ import changeView from '../utils/change-view.js';
 import HeaderView from '../views/header-view.js';
 import {INITIAL_GAME} from '../utils/change-level.js';
 import {GAME_DATA} from '../data/game-data.js';
+import {getGameStatisticsNodes} from '../utils/get-game-statistics.js';
 import GameSingleView from '../views/game-single-view.js';
 import GameDoubleView from '../views/game-double-view.js';
 import GameTripleView from '../views/game-triple-view.js';
 
-const screenContainer = document.createElement(`div`);
-
 export default class GameScreen {
   constructor(model) {
-    this.model = model;
     // Инициализация и настройка игры
-
+    this.model = model;
+    this.gameTypes = {
+      singleQuestion: new GameSingleView(GAME_DATA[this.model._state.level], getGameStatisticsNodes(this.model._state).join(``)),
+      doubleQuestion: new GameDoubleView(GAME_DATA[this.model._state.level], getGameStatisticsNodes(this.model._state).join(``)),
+      tripleQuestion: new GameTripleView(GAME_DATA[this.model._state.level], getGameStatisticsNodes(this.model._state).join(``))
+    };
+    this.currentGameView = this.gameTypes[GAME_DATA[this.model._state.level].type];
+    this.screenContainer = document.createElement(`div`);
   }
 
   // stopGame() {
   //   // Остановка игры
   // }
 
-  startGame() {
-    const gameTypes = {
-      singleQuestion: new GameSingleView(GAME_DATA[this.model._state.level]),
-      doubleQuestion: new GameDoubleView(GAME_DATA[this.model._state.level]),
-      tripleQuestion: new GameTripleView(GAME_DATA[this.model._state.level])
+  init() {
+    const header = new HeaderView(INITIAL_GAME, this.model._state);
+    this.currentGameView.onAnswer = () => {
+      this.model.nextLevel();
+      this.changeLevel();
     };
 
-    const header = new HeaderView(INITIAL_GAME, this.model._state);
-    const currentGameType = gameTypes[GAME_DATA[this.model._state.level].type];
-
-    screenContainer.innerHTML = ``;
-    screenContainer.appendChild(header.element);
-    screenContainer.appendChild(currentGameType.element);
-    changeView(screenContainer);
+    this.screenContainer.innerHTML = ``;
+    this.screenContainer.appendChild(header.element);
+    this.screenContainer.appendChild(this.currentGameView.element);
+    changeView(this.screenContainer);
   }
 
   // answer(answer) {
@@ -51,9 +53,9 @@ export default class GameScreen {
   //   // Обновление статистики игрока
   // }
 
-  // changeLevel() {
-  //   // Обновление текщего уровня
-  // }
+  changeLevel() {
+    // Обновление текщего уровня
+  }
 
 
   // endGame(win, canContinue) {

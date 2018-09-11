@@ -1,7 +1,9 @@
 import {INITIAL_GAME} from '../utils/change-level.js';
 import {GAME_DATA} from '../data/game-data.js';
+// import {changeLevel} from '../utils/change-level.js';
+import reducePlayerLives from '../utils/reduce-player-lives.js';
 
-const getLevel = (state) => GAME_DATA[`${state.level}`];
+const getLevel = (state) => GAME_DATA[state.level];
 
 export default class GameModel {
   constructor(playerName) {
@@ -13,31 +15,28 @@ export default class GameModel {
     return this._state;
   }
 
-  // hasNextLevel() {
-  //   return getLevel(this._state.level + 1) !== void 0;
-  // }
+  hasNextLevel() {
+    return getLevel(this._state + 1) !== undefined;
+  }
 
-  // nextLevel() {
-  //   this._state = changeLevel(this._state, this._state.level + 1);
-  // }
+  nextLevel() {
+    // if (this.hasNextLevel()) {
+    //   changeLevel(this._state.level, this._state.level++)
+    // }
+  }
 
-  // die() {
-  //   this._state = die(this._state);
-  // }
+  decrementLives() {
+    this._state.lives = reducePlayerLives(this._state.lives);
+  }
 
   restart() {
     this._state = INITIAL_GAME;
   }
 
-  isDead() {
-    return this._state.lives <= 0;
-  }
-
-  getCurrentLevel() {
-    return getLevel(this._state);
-  }
+  updateStats() {}
 
   // tick() {
   //   this._state = tick(this._state);
   // }
 }
+

@@ -41,7 +41,8 @@ export default class GameDoubleView extends AbstractView {
     </section>`;
   }
 
-  onAnswer() {}
+  onAnswer() {
+  }
 
   bind() {
     const form = this.element.querySelector(`form`);
