@@ -1,4 +1,5 @@
-import AbstractView from "./abstract-view.js";
+import AbstractView from './abstract-view.js';
+import Application from '../controller/application.js';
 
 export default class HeaderView extends AbstractView {
   constructor(initialState, currentState) {
@@ -44,7 +45,9 @@ export default class HeaderView extends AbstractView {
     </header>`;
   }
 
-  onClick() {}
+  onClick() {
+    Application.showIntro();
+  }
 
   bind() {
     this.element.querySelector(`.back`).addEventListener(`click`, () => {

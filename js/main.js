@@ -1,5 +1,3 @@
-import appendNodeToMain from './utils/append-node.js';
-import IntroScreen from './blocks/intro-view.js';
+import Application from './controller/application.js';
 
-const intro = new IntroScreen();
-appendNodeToMain(intro.element);
+Application.showIntro();

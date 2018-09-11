@@ -1,16 +1,14 @@
 import AbstractView from "./abstract-view.js";
 
 export default class GameSingleView extends AbstractView {
-  constructor(data, headerTemplate, statsTemplate) {
+  constructor(data, statsTemplate) {
     super();
     this.data = data;
-    this.headerTemplate = headerTemplate;
     this.statsTemplate = statsTemplate;
   }
 
   get template() {
     return `
-    ${this.headerTemplate}
     <section class="game">
       <p class="game__task">${this.data.task}</p>
       <form class="game__content  game__content--wide">
