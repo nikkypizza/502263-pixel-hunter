@@ -1,16 +1,14 @@
 import AbstractView from "./abstract-view.js";
 
 export default class GameDoubleView extends AbstractView {
-  constructor(data, headerTemplate, statsTemplate) {
+  constructor(data, statsTemplate) {
     super();
     this.data = data;
-    this.headerTemplate = headerTemplate;
     this.statsTemplate = statsTemplate;
   }
 
   get template() {
     return `
-    ${this.headerTemplate}
     <section class="game">
       <p class="game__task">${this.data.task}</p>
       <form class="game__content">
@@ -43,14 +41,15 @@ export default class GameDoubleView extends AbstractView {
     </section>`;
   }
 
-  onAnswer() {}
+  onAnswer() {
+  }
 
   bind() {
     const form = this.element.querySelector(`form`);
     const inputs = form.querySelectorAll(`input`);
-    const checkFormInputs = () => {
+    const checkFormInputs = (evt) => {
       if ([...inputs].filter((el) => el.checked).length === 2) {
-        this.onAnswer();
+        this.onAnswer(evt);
       }
     };
     form.addEventListener(`click`, checkFormInputs);

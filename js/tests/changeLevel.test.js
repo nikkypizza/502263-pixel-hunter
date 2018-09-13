@@ -13,7 +13,7 @@ describe(`changeLevel()`, () => {
     it(`Game Starts With 3 lives, level 0, 30000 time`, () => {
       assert.equal(0, INITIAL_GAME.level);
       assert.equal(3, INITIAL_GAME.lives);
-      assert.equal(30000, INITIAL_GAME.time);
+      assert.equal(30, INITIAL_GAME.time);
     });
   });
   it(`should not accept strings as argument`, () => {

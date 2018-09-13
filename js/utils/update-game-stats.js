@@ -1,4 +1,4 @@
-import {gameTasks} from '../blocks/render-game-screen.js';
+import {gameTasks} from '../views/render-game-screen.js';
 import {GAME_DATA} from '../data/game-data.js';
 import {currentGame} from '../utils/change-level.js';
 import reducePlayerLives from '../utils/reduce-player-lives.js';

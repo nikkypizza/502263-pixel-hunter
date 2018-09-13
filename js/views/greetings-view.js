@@ -1,4 +1,5 @@
 import AbstractView from "./abstract-view.js";
+import Application from '../controller/application.js';
 
 export default class GreetingsView extends AbstractView {
   constructor() {
@@ -30,6 +31,7 @@ export default class GreetingsView extends AbstractView {
   }
 
   onClick() {
+    Application.showRules();
   }
 
   bind() {

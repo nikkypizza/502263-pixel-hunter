@@ -1,8 +1,8 @@
 import IngameTimer from './ingame-timer.js';
 import {STATS_DATA} from '../data/game-data.js';
 
-const TIME_TO_ANSWER_MILLISECONDS = 30000;
-let gameTimer = new IngameTimer(TIME_TO_ANSWER_MILLISECONDS);
+const TIME_TO_ANSWER_SECONDS = 30;
+let gameTimer = new IngameTimer(TIME_TO_ANSWER_SECONDS);
 
 const INITIAL_GAME = Object.freeze({
   level: 0,
@@ -11,8 +11,6 @@ const INITIAL_GAME = Object.freeze({
   answers: [],
   statistics: STATS_DATA
 });
-
-let currentGame = Object.assign({}, INITIAL_GAME);
 
 const changeLevel = (game, level) => {
   if (typeof level !== `number`) {
@@ -28,4 +26,4 @@ const changeLevel = (game, level) => {
   return newGame;
 };
 
-export {INITIAL_GAME, currentGame, changeLevel};
+export {INITIAL_GAME, changeLevel};
