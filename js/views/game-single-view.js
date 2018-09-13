@@ -35,8 +35,8 @@ export default class GameSingleView extends AbstractView {
   bind() {
     const answers = this.element.querySelectorAll(`input`);
     answers.forEach((el) => {
-      el.addEventListener(`click`, () => {
-        this.onAnswer();
+      el.addEventListener(`click`, (evt) => {
+        this.onAnswer(evt);
       });
     });
   }

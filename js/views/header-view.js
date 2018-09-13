@@ -24,7 +24,7 @@ export default class HeaderView extends AbstractView {
             <use xlink:href="img/sprite.svg#logo-small"></use>
           </svg>
         </button>
-        <div class="game__timer">${this.currentState.time / 1000}</div>
+        <div class="game__timer">${this.currentState.time}</div>
         <div class="game__lives">
           ${new Array(this.initialState.lives - this.currentState.lives).fill(heartEmptyIcon).join(``)}
           ${new Array(this.currentState.lives).fill(heartFullIcon).join(``)}

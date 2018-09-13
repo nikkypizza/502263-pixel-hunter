@@ -33,8 +33,8 @@ export default class GameTripleView extends AbstractView {
   bind() {
     const gameOptions = this.element.querySelectorAll(`.game__option`);
     gameOptions.forEach((el) => {
-      el.addEventListener(`click`, () => {
-        this.onAnswer();
+      el.addEventListener(`click`, (evt) => {
+        this.onAnswer(evt);
       });
     });
   }

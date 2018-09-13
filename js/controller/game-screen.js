@@ -6,29 +6,46 @@ import {getGameStatisticsNodes} from '../utils/get-game-statistics.js';
 import GameSingleView from '../views/game-single-view.js';
 import GameDoubleView from '../views/game-double-view.js';
 import GameTripleView from '../views/game-triple-view.js';
+import Application from '../controller/application.js';
 
 export default class GameScreen {
   constructor(model) {
-    // Инициализация и настройка игры
     this.model = model;
-    this.gameTypes = {
-      singleQuestion: new GameSingleView(GAME_DATA[this.model._state.level], getGameStatisticsNodes(this.model._state).join(``)),
-      doubleQuestion: new GameDoubleView(GAME_DATA[this.model._state.level], getGameStatisticsNodes(this.model._state).join(``)),
-      tripleQuestion: new GameTripleView(GAME_DATA[this.model._state.level], getGameStatisticsNodes(this.model._state).join(``))
-    };
-    this.currentGameView = this.gameTypes[GAME_DATA[this.model._state.level].type];
     this.screenContainer = document.createElement(`div`);
+    this.ONE_SECOND = 200;
   }
 
-  // stopGame() {
-  //   // Остановка игры
-  // }
+  endGame() {
+    Application.showStats(true);
+    this.model.restart();
+  }
 
   init() {
-    const header = new HeaderView(INITIAL_GAME, this.model._state);
-    this.currentGameView.onAnswer = () => {
-      this.model.nextLevel();
-      this.changeLevel();
+    this.startTimer();
+    this.gameTypes = {
+      singleQuestion: new GameSingleView(GAME_DATA[this.model.currentGame.level], getGameStatisticsNodes(this.model.currentGame).join(``)),
+      doubleQuestion: new GameDoubleView(GAME_DATA[this.model.currentGame.level], getGameStatisticsNodes(this.model.currentGame).join(``)),
+      tripleQuestion: new GameTripleView(GAME_DATA[this.model.currentGame.level], getGameStatisticsNodes(this.model.currentGame).join(``))
+    };
+    this.currentGameView = this.gameTypes[GAME_DATA[this.model.currentGame.level].type];
+    const header = new HeaderView(INITIAL_GAME, this.model.currentGame);
+
+    this.currentGameView.onAnswer = (evt) => {
+      this.model.updateStats(this.currentGameView, evt);
+      if (this.model.currentGame.lives <= 0) {
+        this.stopTimer();
+        this.endGame();
+        return;
+      }
+      if (this.model.currentGame.lives > 0 && this.model.currentGame.level < GAME_DATA.length - 1) {
+        this.model.nextLevel();
+        this.stopTimer();
+        this.init();
+      } else {
+        this.model.nextLevel();
+        this.stopTimer();
+        this.winGame();
+      }
     };
 
     this.screenContainer.innerHTML = ``;
@@ -37,32 +54,41 @@ export default class GameScreen {
     changeView(this.screenContainer);
   }
 
-  // answer(answer) {
-  //   // Обработка ответа пользователя
-  // }
-
-  // restart(continueGame) {
-  //   // Продолжение или сброс игры
-  // }
-
-  // exit() {
-  //   // Выход из игры
-  // }
-
-  // updateHeader() {
-  //   // Обновление статистики игрока
-  // }
-
-  changeLevel() {
-    // Обновление текщего уровня
+  winGame() {
+    Application.showStats();
+    this.model.restart();
   }
 
+  tick() {
+    if (this.model.currentGame.time <= 0) {
+      this.model.decrementLives();
+      this.model.nextLevel();
+      this.stopTimer();
+      this.init();
+    }
+    if (this.model.currentGame.lives <= 0) {
+      this.stopTimer();
+      this.endGame();
+      return;
+    }
+    this.model.currentGame.time--;
+    this.updateHeader();
+  }
 
-  // endGame(win, canContinue) {
-  //   // Проигрыш игрока
-  // }
+  updateHeader() {
+    let headerTimerNode = this.screenContainer.querySelector(`.game__timer`);
+    headerTimerNode.innerHTML = this.model.currentGame.time;
+  }
 
-  // _changeContentView(view) {
-  //   // Вспомогательный внутренний метод
-  // }
+  startTimer() {
+    this.timer = setTimeout(() => {
+      this.tick();
+      this.startTimer();
+    }, this.ONE_SECOND);
+  }
+
+  stopTimer() {
+    clearTimeout(this.timer);
+    this.model.currentGame.time = this.model._state.time;
+  }
 }

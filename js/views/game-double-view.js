@@ -47,9 +47,9 @@ export default class GameDoubleView extends AbstractView {
   bind() {
     const form = this.element.querySelector(`form`);
     const inputs = form.querySelectorAll(`input`);
-    const checkFormInputs = () => {
+    const checkFormInputs = (evt) => {
       if ([...inputs].filter((el) => el.checked).length === 2) {
-        this.onAnswer();
+        this.onAnswer(evt);
       }
     };
     form.addEventListener(`click`, checkFormInputs);
