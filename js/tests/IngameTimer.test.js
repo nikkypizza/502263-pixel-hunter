@@ -2,11 +2,11 @@ import {assert} from 'chai';
 import IngameTimer from '../utils/ingame-timer.js';
 
 let callbackState = `not active`;
-const sayHello = function () {
+const toggleActive = function () {
   callbackState = `active`;
 };
 
-const mockTimer = new IngameTimer(2, sayHello);
+const mockTimer = new IngameTimer(2, toggleActive);
 
 describe(`IngameTimer()`, () => {
   it(`set time to given value`, () => {

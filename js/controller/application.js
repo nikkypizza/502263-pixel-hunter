@@ -1,10 +1,10 @@
-import changeView from '../utils/change-view.js';
+import Utils from '../utils/utils.js';
 import IntroView from '../views/intro-view.js';
 import GreetingsView from '../views/greetings-view.js';
 import HeaderView from '../views/header-view.js';
-import RulesView from '../views/rules-view.js';
-import GameScreen from './game-screen.js';
 import GameModel from '../model/game-model.js';
+import GameScreen from './game-screen.js';
+import RulesView from '../views/rules-view.js';
 import StatsView from '../views/stats-view.js';
 
 const screenContainer = document.createElement(`div`);
@@ -12,12 +12,12 @@ const screenContainer = document.createElement(`div`);
 export default class Application {
   static showIntro() {
     const intro = new IntroView();
-    changeView(intro.element);
+    Utils.changeView(intro.element);
   }
 
   static showGreetings() {
     const greetings = new GreetingsView();
-    changeView(greetings.element);
+    Utils.changeView(greetings.element);
   }
 
   static showRules() {
@@ -27,7 +27,7 @@ export default class Application {
     screenContainer.innerHTML = ``;
     screenContainer.appendChild(header.element);
     screenContainer.appendChild(rules.element);
-    changeView(screenContainer);
+    Utils.changeView(screenContainer);
   }
 
   static showGame(userName) {
@@ -43,6 +43,6 @@ export default class Application {
     screenContainer.innerHTML = ``;
     screenContainer.appendChild(header.element);
     screenContainer.appendChild(stats.element);
-    changeView(screenContainer);
+    Utils.changeView(screenContainer);
   }
 }

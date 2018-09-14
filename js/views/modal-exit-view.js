@@ -1,6 +1,6 @@
 import AbstractView from "./abstract-view.js";
 
-export default class ModalConfirmView extends AbstractView {
+export default class ModalExitView extends AbstractView {
   constructor() {
     super();
   }
@@ -22,17 +22,12 @@ export default class ModalConfirmView extends AbstractView {
     </section>`;
   }
 
-  onRestartButtonClick() {}
-
   onModalClose() {}
 
   bind() {
     const modalButtons = this.element.querySelectorAll(`.modal__btn`);
     const modalCloseButton = this.element.querySelector(`.modal__close`);
 
-    modalButtons[0].addEventListener(`click`, () => {
-      this.onRestartButtonClick();
-    });
     modalButtons[1].addEventListener(`click`, () => {
       this.onModalClose();
     });

@@ -1,35 +1,39 @@
-import changeView from '../utils/change-view.js';
-import HeaderView from '../views/header-view.js';
-import {INITIAL_GAME} from '../utils/change-level.js';
+import Utils from '../utils/utils.js';
 import {GAME_DATA} from '../data/game-data.js';
-import {getGameStatisticsNodes} from '../utils/get-game-statistics.js';
+import HeaderView from '../views/header-view.js';
 import GameSingleView from '../views/game-single-view.js';
 import GameDoubleView from '../views/game-double-view.js';
 import GameTripleView from '../views/game-triple-view.js';
+import ModalExitView from '../views/modal-exit-view.js';
 import Application from '../controller/application.js';
 
 export default class GameScreen {
   constructor(model) {
     this.model = model;
     this.screenContainer = document.createElement(`div`);
-    this.ONE_SECOND = 200;
-  }
-
-  endGame() {
-    Application.showStats(true);
-    this.model.restart();
+    this.ONE_SECOND = 500;
   }
 
   init() {
-    this.startTimer();
-    this.gameTypes = {
-      singleQuestion: new GameSingleView(GAME_DATA[this.model.currentGame.level], getGameStatisticsNodes(this.model.currentGame).join(``)),
-      doubleQuestion: new GameDoubleView(GAME_DATA[this.model.currentGame.level], getGameStatisticsNodes(this.model.currentGame).join(``)),
-      tripleQuestion: new GameTripleView(GAME_DATA[this.model.currentGame.level], getGameStatisticsNodes(this.model.currentGame).join(``))
+    const header = new HeaderView(this.model._state, this.model.currentGame);
+    header.onClick = () => {
+      clearInterval(this.timer);
+      this.pauseGame();
     };
-    this.currentGameView = this.gameTypes[GAME_DATA[this.model.currentGame.level].type];
-    const header = new HeaderView(INITIAL_GAME, this.model.currentGame);
+    this.currentGameView = null;
+    switch (GAME_DATA[this.model.currentGame.level].type) {
+      case this.model.GameType.SINGLE_QUESTION:
+        this.currentGameView = new GameSingleView(GAME_DATA[this.model.currentGame.level], Utils.getGameStatisticsNodes(this.model.currentGame.statistics).join(``));
+        break;
+      case this.model.GameType.DOUBLE_QUESTION:
+        this.currentGameView = new GameDoubleView(GAME_DATA[this.model.currentGame.level], Utils.getGameStatisticsNodes(this.model.currentGame.statistics).join(``));
+        break;
+      case this.model.GameType.TRIPLE_QUESTION:
+        this.currentGameView = new GameTripleView(GAME_DATA[this.model.currentGame.level], Utils.getGameStatisticsNodes(this.model.currentGame.statistics).join(``));
+        break;
+    }
 
+    this.startTimer();
     this.currentGameView.onAnswer = (evt) => {
       this.model.updateStats(this.currentGameView, evt);
       if (this.model.currentGame.lives <= 0) {
@@ -38,11 +42,11 @@ export default class GameScreen {
         return;
       }
       if (this.model.currentGame.lives > 0 && this.model.currentGame.level < GAME_DATA.length - 1) {
-        this.model.nextLevel();
+        GameScreen.changeLevel(this.model.currentGame.level, this.model.currentGame.level++);
         this.stopTimer();
         this.init();
       } else {
-        this.model.nextLevel();
+        GameScreen.changeLevel(this.model.currentGame.level, this.model.currentGame.level++);
         this.stopTimer();
         this.winGame();
       }
@@ -51,7 +55,12 @@ export default class GameScreen {
     this.screenContainer.innerHTML = ``;
     this.screenContainer.appendChild(header.element);
     this.screenContainer.appendChild(this.currentGameView.element);
-    changeView(this.screenContainer);
+    this.headerTimerNode = this.screenContainer.querySelector(`.game__timer`);
+    Utils.changeView(this.screenContainer);
+  }
+
+  updateHeader() {
+    this.headerTimerNode.innerHTML = this.model.currentGame.time;
   }
 
   winGame() {
@@ -59,10 +68,26 @@ export default class GameScreen {
     this.model.restart();
   }
 
+  endGame() {
+    Application.showStats(true);
+    this.model.restart();
+  }
+
+  startTimer() {
+    this.timer = setInterval(() => {
+      this.tick();
+    }, this.ONE_SECOND);
+  }
+
+  stopTimer() {
+    clearInterval(this.timer);
+    this.model.currentGame.time = this.model._state.time;
+  }
+
   tick() {
     if (this.model.currentGame.time <= 0) {
-      this.model.decrementLives();
-      this.model.nextLevel();
+      this.model.currentGame.lives = this.model.decrementLives(this.model.currentGame.lives);
+      GameScreen.changeLevel(this.model.currentGame.level, this.model.currentGame.level++);
       this.stopTimer();
       this.init();
     }
@@ -75,20 +100,26 @@ export default class GameScreen {
     this.updateHeader();
   }
 
-  updateHeader() {
-    let headerTimerNode = this.screenContainer.querySelector(`.game__timer`);
-    headerTimerNode.innerHTML = this.model.currentGame.time;
-  }
-
-  startTimer() {
-    this.timer = setTimeout(() => {
-      this.tick();
+  pauseGame() {
+    const modalExit = new ModalExitView();
+    modalExit.onModalClose = () => {
+      Utils.removeNode(modalExit.element);
       this.startTimer();
-    }, this.ONE_SECOND);
+    };
+    Utils.appendNode(modalExit.element);
   }
 
-  stopTimer() {
-    clearTimeout(this.timer);
-    this.model.currentGame.time = this.model._state.time;
+  static changeLevel(game, level) {
+    if (typeof level !== `number`) {
+      throw new Error(`Level should be of type number`);
+    }
+    if (level < 0) {
+      throw new Error(`Level should not be a negative value`);
+    }
+
+    const newGame = Object.assign({}, game, {
+      level
+    });
+    return newGame;
   }
 }

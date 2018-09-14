@@ -1,4 +1,5 @@
-import AbstractView from "./abstract-view.js";
+import AbstractView from './abstract-view.js';
+import Utils from '../utils/utils.js';
 
 export default class StatsView extends AbstractView {
   constructor(game, isFail, statsArr) {
@@ -17,7 +18,7 @@ export default class StatsView extends AbstractView {
             <td class="result__number"></td>
             <td>
               <ul class="stats">
-                ${this.getGameStatisticsNodes(this.statsArr).join(``)}
+                ${Utils.getGameStatisticsNodes(this.statsArr).join(``)}
               </ul>
             </td>
             <td class="result__total"></td>
@@ -46,7 +47,7 @@ export default class StatsView extends AbstractView {
           <td class="result__number"></td>
           <td colspan="2">
             <ul class="stats">
-              ${this.getGameStatisticsNodes(this.statsArr).join(``)}
+              ${Utils.getGameStatisticsNodes(this.statsArr).join(``)}
             </ul>
           </td>
           <td class="result__points">× 100</td>
@@ -92,13 +93,8 @@ export default class StatsView extends AbstractView {
       MIN_TIME: 10,
       MAX_TIME: 20
     };
-    let gamePoints = 0;
 
-    // Test #1
-    if (questionsArr.length < 10) {
-      return -1;
-    }
-    // Test #2
+    let gamePoints = 0;
     questionsArr.forEach((el) => {
       if (el.isCorrect) {
         if (el.answerTime < answerTimeMap.MIN_TIME) {
@@ -112,27 +108,8 @@ export default class StatsView extends AbstractView {
         }
       }
     });
-
     gamePoints += livesLeft * answerPointsMap.EXTRA_LIFE; // По 50 очков за оставшуюся жизнь
+
     return gamePoints;
   }
-
-  getGameStatisticsNodes(data) {
-    const statsAnswerTypeMap = {
-      correct: `<li class="stats__result stats__result--correct"></li>`,
-      fast: `<li class="stats__result stats__result--fast"></li>`,
-      slow: `<li class="stats__result stats__result--slow"></li>`,
-      wrong: `<li class="stats__result stats__result--wrong"></li>`,
-      unknown: `<li class="stats__result stats__result--unknown"></li>`,
-    };
-
-    const gameStatsArr = [];
-    data.forEach((el) => {
-      gameStatsArr.push(statsAnswerTypeMap[el]);
-    });
-
-    return gameStatsArr;
-  }
-
-  bind() {}
 }
