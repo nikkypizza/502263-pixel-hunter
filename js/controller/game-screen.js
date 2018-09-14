@@ -1,5 +1,6 @@
 import Utils from '../utils/utils.js';
 import {GAME_DATA} from '../data/game-data.js';
+import {serverData} from '../controller/application.js';
 import HeaderView from '../views/header-view.js';
 import GameSingleView from '../views/game-single-view.js';
 import GameDoubleView from '../views/game-double-view.js';
@@ -21,15 +22,15 @@ export default class GameScreen {
       this.pauseGame();
     };
     this.currentGameView = null;
-    switch (GAME_DATA[this.model.currentGame.level].type) {
+    switch (serverData[this.model.currentGame.level].type) {
       case this.model.GameType.SINGLE_QUESTION:
-        this.currentGameView = new GameSingleView(GAME_DATA[this.model.currentGame.level], Utils.getGameStatisticsNodes(this.model.currentGame.statistics).join(``));
+        this.currentGameView = new GameSingleView(serverData[this.model.currentGame.level], Utils.getGameStatisticsNodes(this.model.currentGame.statistics).join(``));
         break;
       case this.model.GameType.DOUBLE_QUESTION:
-        this.currentGameView = new GameDoubleView(GAME_DATA[this.model.currentGame.level], Utils.getGameStatisticsNodes(this.model.currentGame.statistics).join(``));
+        this.currentGameView = new GameDoubleView(serverData[this.model.currentGame.level], Utils.getGameStatisticsNodes(this.model.currentGame.statistics).join(``));
         break;
       case this.model.GameType.TRIPLE_QUESTION:
-        this.currentGameView = new GameTripleView(GAME_DATA[this.model.currentGame.level], Utils.getGameStatisticsNodes(this.model.currentGame.statistics).join(``));
+        this.currentGameView = new GameTripleView(serverData[this.model.currentGame.level], Utils.getGameStatisticsNodes(this.model.currentGame.statistics).join(``));
         break;
     }
 

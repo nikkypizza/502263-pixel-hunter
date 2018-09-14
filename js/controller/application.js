@@ -6,10 +6,34 @@ import GameModel from '../model/game-model.js';
 import GameScreen from './game-screen.js';
 import RulesView from '../views/rules-view.js';
 import StatsView from '../views/stats-view.js';
+import ModalErrorView from '../views/modal-error-view.js';
+import SplashScreen from '../views/splash-screen.js';
 
 const screenContainer = document.createElement(`div`);
 
+const checkStatus = (response) => {
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  } else {
+    throw new Error(`${response.status}: ${response.statusText}`);
+  }
+};
+
+let serverData = null;
 export default class Application {
+  static start() {
+    const splash = new SplashScreen();
+    Utils.changeView(splash.element);
+    splash.start();
+    window.fetch(`https://es.dump.academy/pixel-hunter/questions`).
+    then(checkStatus).
+    then((response) => response.json()).
+    then((data) => (serverData = data)).
+    then(() => Application.showIntro()).
+    catch((err) => Application.showModalError(err.message)).
+    then(() => splash.stop());
+  }
+
   static showIntro() {
     const intro = new IntroView();
     Utils.changeView(intro.element);
@@ -45,4 +69,11 @@ export default class Application {
     screenContainer.appendChild(stats.element);
     Utils.changeView(screenContainer);
   }
+
+  static showModalError(errorStatus) {
+    const modalError = new ModalErrorView(errorStatus);
+    Utils.changeView(modalError.element);
+  }
 }
+
+export {serverData};
