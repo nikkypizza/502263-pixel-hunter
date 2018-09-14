@@ -18,6 +18,25 @@
   line-height: 45px;
 }
 
+.game__timer--flash {
+  color: #66ccff;
+  animation-name: flashanim;
+  animation-duration: 0.5s;
+  animation-timing: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes flashanim {
+  0% {
+    color: #00222d;
+  }
+
+  100% {
+    color: #ff0000;
+  }
+}
+
 .game__task {
   margin: 20px 0;
 

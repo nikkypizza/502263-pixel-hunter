@@ -11,7 +11,7 @@ export default class GameScreen {
   constructor(model) {
     this.model = model;
     this.screenContainer = document.createElement(`div`);
-    this.ONE_SECOND = 500;
+    this.ONE_SECOND = 1000;
   }
 
   init() {
@@ -36,12 +36,12 @@ export default class GameScreen {
     this.startTimer();
     this.currentGameView.onAnswer = (evt) => {
       this.model.updateStats(this.currentGameView, evt);
-      if (this.model.currentGame.lives <= 0) {
+      if (this.model.currentGame.lives < 0) {
         this.stopTimer();
         this.endGame();
         return;
       }
-      if (this.model.currentGame.lives > 0 && this.model.currentGame.level < GAME_DATA.length - 1) {
+      if (this.model.currentGame.lives >= 0 && this.model.currentGame.level < GAME_DATA.length - 1) {
         GameScreen.changeLevel(this.model.currentGame.level, this.model.currentGame.level++);
         this.stopTimer();
         this.init();
@@ -88,15 +88,19 @@ export default class GameScreen {
     if (this.model.currentGame.time <= 0) {
       this.model.currentGame.lives = this.model.decrementLives(this.model.currentGame.lives);
       GameScreen.changeLevel(this.model.currentGame.level, this.model.currentGame.level++);
+      this.headerTimerNode.classList.remove(`game__timer--flash`);
       this.stopTimer();
       this.init();
     }
-    if (this.model.currentGame.lives <= 0) {
+    if (this.model.currentGame.lives < 0) {
       this.stopTimer();
       this.endGame();
       return;
     }
     this.model.currentGame.time--;
+    if (this.model.currentGame.time === 5) {
+      this.headerTimerNode.classList.add(`game__timer--flash`);
+    }
     this.updateHeader();
   }
 
