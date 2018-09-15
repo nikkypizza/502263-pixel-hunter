@@ -10,7 +10,7 @@ import ModalErrorView from '../views/modal-error-view.js';
 import SplashScreen from '../views/splash-screen.js';
 
 const screenContainer = document.createElement(`div`);
-
+const ACADEMY_URL = `https://es.dump.academy/pixel-hunter/questions`;
 const checkStatus = (response) => {
   if (response.status >= 200 && response.status < 300) {
     return response;
@@ -25,7 +25,7 @@ export default class Application {
     const splash = new SplashScreen();
     Utils.changeView(splash.element);
     splash.start();
-    window.fetch(`https://es.dump.academy/pixel-hunter/questions`).
+    window.fetch(ACADEMY_URL).
     then(checkStatus).
     then((response) => response.json()).
     then((data) => (serverData = data)).

@@ -15,11 +15,11 @@ export default class GameSingleView extends AbstractView {
         <div class="game__option">
           <img src="${this.data.options[0].src}" alt="${this.data.options[0].alt}" width="705" height="455">
           <label class="game__answer game__answer--photo">
-            <input class="visually-hidden" name="${this.data.options[0].inputName}" type="radio" value="photo">
+            <input class="visually-hidden" name="question1" type="radio" value="photo">
             <span>Фото</span>
           </label>
           <label class="game__answer game__answer--paint">
-            <input class="visually-hidden" name="${this.data.options[0].inputName}" type="radio" value="paint">
+            <input class="visually-hidden" name="question1" type="radio" value="paint">
             <span>Рисунок</span>
           </label>
         </div>

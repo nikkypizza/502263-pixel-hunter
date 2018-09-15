@@ -1,4 +1,5 @@
-import {GAME_DATA, STATS_DATA} from '../data/game-data.js';
+import {serverData} from '../controller/application.js';
+import adaptServerData from '../data/data-adapter.js';
 
 export default class GameModel {
   constructor(playerName) {
@@ -19,9 +20,10 @@ export default class GameModel {
       lives: 3,
       time: 30,
       answers: [],
-      statistics: STATS_DATA
+      statistics: new Array(10).fill(`unknown`)
     });
     this.currentGame = Object.assign({}, this._state);
+    this.questionsData = adaptServerData(serverData);
   }
 
   get state() {
@@ -57,7 +59,7 @@ export default class GameModel {
   }
 
   updateStats(currentScreen, evt) {
-    const currentGameScreen = GAME_DATA[this.currentGame.level];
+    const currentGameScreen = this.questionsData[this.currentGame.level];
     const evtTargetParent = evt.target.parentNode;
 
     switch (currentScreen.data.type) {

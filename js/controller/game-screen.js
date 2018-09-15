@@ -1,6 +1,4 @@
 import Utils from '../utils/utils.js';
-import {GAME_DATA} from '../data/game-data.js';
-import {serverData} from '../controller/application.js';
 import HeaderView from '../views/header-view.js';
 import GameSingleView from '../views/game-single-view.js';
 import GameDoubleView from '../views/game-double-view.js';
@@ -22,15 +20,15 @@ export default class GameScreen {
       this.pauseGame();
     };
     this.currentGameView = null;
-    switch (serverData[this.model.currentGame.level].type) {
+    switch (this.model.questionsData[this.model.currentGame.level].type) {
       case this.model.GameType.SINGLE_QUESTION:
-        this.currentGameView = new GameSingleView(serverData[this.model.currentGame.level], Utils.getGameStatisticsNodes(this.model.currentGame.statistics).join(``));
+        this.currentGameView = new GameSingleView(this.model.questionsData[this.model.currentGame.level], Utils.getGameStatisticsNodes(this.model.currentGame.statistics).join(``));
         break;
       case this.model.GameType.DOUBLE_QUESTION:
-        this.currentGameView = new GameDoubleView(serverData[this.model.currentGame.level], Utils.getGameStatisticsNodes(this.model.currentGame.statistics).join(``));
+        this.currentGameView = new GameDoubleView(this.model.questionsData[this.model.currentGame.level], Utils.getGameStatisticsNodes(this.model.currentGame.statistics).join(``));
         break;
       case this.model.GameType.TRIPLE_QUESTION:
-        this.currentGameView = new GameTripleView(serverData[this.model.currentGame.level], Utils.getGameStatisticsNodes(this.model.currentGame.statistics).join(``));
+        this.currentGameView = new GameTripleView(this.model.questionsData[this.model.currentGame.level], Utils.getGameStatisticsNodes(this.model.currentGame.statistics).join(``));
         break;
     }
 
@@ -42,7 +40,7 @@ export default class GameScreen {
         this.endGame();
         return;
       }
-      if (this.model.currentGame.lives >= 0 && this.model.currentGame.level < GAME_DATA.length - 1) {
+      if (this.model.currentGame.lives >= 0 && this.model.currentGame.level < this.model.questionsData.length - 1) {
         GameScreen.changeLevel(this.model.currentGame.level, this.model.currentGame.level++);
         this.stopTimer();
         this.init();

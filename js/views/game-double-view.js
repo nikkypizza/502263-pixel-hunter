@@ -15,22 +15,22 @@ export default class GameDoubleView extends AbstractView {
         <div class="game__option">
           <img src="${this.data.options[0].src}" alt="${this.data.options[0].alt}" width="468" height="458">
           <label class="game__answer game__answer--photo">
-            <input class="visually-hidden" name="${this.data.options[0].inputName}" type="radio" value="photo">
+            <input class="visually-hidden" name="question1" type="radio" value="photo">
             <span>Фото</span>
           </label>
           <label class="game__answer game__answer--paint">
-            <input class="visually-hidden" name="${this.data.options[0].inputName}" type="radio" value="paint">
+            <input class="visually-hidden" name="question1" type="radio" value="paint">
             <span>Рисунок</span>
           </label>
         </div>
         <div class="game__option">
           <img src="${this.data.options[1].src}" alt="${this.data.options[1].alt}" width="468" height="458">
           <label class="game__answer game__answer--photo">
-            <input class="visually-hidden" name="${this.data.options[1].inputName}" type="radio" value="photo">
+            <input class="visually-hidden" name="question2" type="radio" value="photo">
             <span>Фото</span>
           </label>
           <label class="game__answer game__answer--paint">
-            <input class="visually-hidden" name="${this.data.options[1].inputName}" type="radio" value="paint">
+            <input class="visually-hidden" name="question2" type="radio" value="paint">
             <span>Рисунок</span>
           </label>
         </div>
